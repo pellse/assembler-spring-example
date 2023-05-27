@@ -1,0 +1,27 @@
+scalar LocalDateTime
+
+type Query {
+    patients: [Patient]
+}
+
+type Patient {
+    id: ID
+    name: String
+    bodyMeasurement: BodyMeasurement
+    spO2: [SpO2]
+}
+
+type BodyMeasurement {
+    id: ID
+    patientId: Int
+    height: Int
+    weight: Int
+    time: LocalDateTime
+}
+
+type SpO2 {
+    id: ID
+    patientId: Int,
+    percentage: Int,
+    time: LocalDateTime
+}
