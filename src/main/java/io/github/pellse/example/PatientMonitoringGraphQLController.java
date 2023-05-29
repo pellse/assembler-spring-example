@@ -27,7 +27,7 @@ public class PatientMonitoringGraphQLController {
 
     private final PatientRepository patientRepository;
     private final BatchRule<Patient, BodyMeasurement> bodyMeasurementBatchRule; // Body Height and Weight
-    private final BatchRule<Patient, List<SpO2>> spO2BatchRule; // Oxygen Saturation
+    private final BatchRule<Patient, List<SpO2>> spO2BatchRule; // Oxygen Saturation from pulse oximeter device (IOT)
 
     PatientMonitoringGraphQLController(PatientRepository pr, BodyMeasurementService bms, SpO2StreamingService spO2ss) {
 

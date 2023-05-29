@@ -46,10 +46,9 @@ public class PatientMonitoringApplication implements ApplicationListener<Applica
 
         var spO2Id = new AtomicInteger(1);
 
-        return () -> Flux.<SpO2>generate(sink -> {
-                    sink.next(randomSpO2(spO2Id.getAndIncrement(), 1));
-                    sink.next(randomSpO2(spO2Id.getAndIncrement(), 2));
-                    sink.next(randomSpO2(spO2Id.getAndIncrement(), 3));
+        return () -> Flux.<SpO2, Integer>generate(() -> 1, (patientId, sink) -> {
+                    sink.next(randomSpO2(spO2Id.getAndIncrement(), patientId));
+                    return (patientId % 3) + 1;
                 })
                 .delayElements(ofSeconds(1));
     }
