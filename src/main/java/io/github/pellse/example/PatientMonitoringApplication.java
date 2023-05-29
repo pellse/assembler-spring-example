@@ -1,6 +1,6 @@
 package io.github.pellse.example;
 
-import io.github.pellse.example.bodymeasurement.BodyMeasure;
+import io.github.pellse.example.bodymeasurement.BodyMeasurement;
 import io.github.pellse.example.bodymeasurement.BodyMeasurementRepository;
 import io.github.pellse.example.patient.Patient;
 import io.github.pellse.example.patient.PatientRepository;
@@ -64,9 +64,9 @@ public class PatientMonitoringApplication implements ApplicationListener<Applica
                 .blockLast();
 
         bodyMeasurementRepository.saveAll(List.of(
-                        new BodyMeasure(null, 1, 170, 65, now().minusWeeks(2)),
-                        new BodyMeasure(null, 2, 165, 62, now().minusWeeks(3)),
-                        new BodyMeasure(null, 3, 175, 76, now().minusWeeks(4))
+                        new BodyMeasurement(null, 1, 170, 65, now().minusWeeks(2)),
+                        new BodyMeasurement(null, 2, 165, 62, now().minusWeeks(3)),
+                        new BodyMeasurement(null, 3, 175, 76, now().minusWeeks(4))
                 ))
                 .blockLast();
     }

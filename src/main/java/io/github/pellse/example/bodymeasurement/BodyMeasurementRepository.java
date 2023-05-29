@@ -5,7 +5,7 @@ import reactor.core.publisher.Flux;
 
 import java.util.List;
 
-public interface BodyMeasurementRepository extends ReactiveMongoRepository<BodyMeasure, Integer> {
+public interface BodyMeasurementRepository extends ReactiveMongoRepository<BodyMeasurement, Integer> {
 
-    Flux<BodyMeasure> findByPatientIdIn(List<Integer> patientIds);
+    Flux<BodyMeasurement> findByPatientIdIn(List<Integer> patientIds);
 }

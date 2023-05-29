@@ -14,7 +14,7 @@ public class BodyMeasurementService {
         this.bodyMeasurementRepository = bodyMeasurementRepository;
     }
 
-    public Flux<BodyMeasure> retrieveBodyMeasure(List<Integer> patientIds) {
+    public Flux<BodyMeasurement> retrieveBodyMeasurement(List<Integer> patientIds) {
         return bodyMeasurementRepository.findByPatientIdIn(patientIds);
     }
 }

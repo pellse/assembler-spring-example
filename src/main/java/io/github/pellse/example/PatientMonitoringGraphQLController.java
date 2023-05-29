@@ -1,6 +1,6 @@
 package io.github.pellse.example;
 
-import io.github.pellse.example.bodymeasurement.BodyMeasure;
+import io.github.pellse.example.bodymeasurement.BodyMeasurement;
 import io.github.pellse.example.bodymeasurement.BodyMeasurementService;
 import io.github.pellse.example.patient.Patient;
 import io.github.pellse.example.patient.PatientRepository;
@@ -26,14 +26,14 @@ import static io.github.pellse.reactive.assembler.caching.CacheFactory.cached;
 public class PatientMonitoringGraphQLController {
 
     private final PatientRepository patientRepository;
-    private final BatchRule<Patient, BodyMeasure> bodyMeasurementBatchRule; // Body Height and Weight
+    private final BatchRule<Patient, BodyMeasurement> bodyMeasurementBatchRule; // Body Height and Weight
     private final BatchRule<Patient, List<SpO2>> spO2BatchRule; // Oxygen Saturation
 
     PatientMonitoringGraphQLController(PatientRepository pr, BodyMeasurementService bms, SpO2StreamingService spO2ss) {
 
         this.patientRepository = pr;
 
-        this.bodyMeasurementBatchRule = batchRule(BodyMeasure::patientId, oneToOne(cached(bms::retrieveBodyMeasure)))
+        this.bodyMeasurementBatchRule = batchRule(BodyMeasurement::patientId, oneToOne(cached(bms::retrieveBodyMeasurement)))
                 .withIdExtractor(Patient::id);
 
         this.spO2BatchRule = batchRule(SpO2::patientId, oneToMany(SpO2::id, cached(autoCache(spO2ss::spO2Flux))))
@@ -46,7 +46,7 @@ public class PatientMonitoringGraphQLController {
     }
 
     @BatchMapping
-    Mono<Map<Patient, BodyMeasure>> bodyMeasure(List<Patient> patients) {
+    Mono<Map<Patient, BodyMeasurement>> bodyMeasurement(List<Patient> patients) {
         return bodyMeasurementBatchRule.executeToMono(patients);
     }
 
