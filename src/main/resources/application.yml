@@ -1,0 +1,20 @@
+spring:
+  cloud:
+    stream:
+      bindings:
+        sendSpO2-out-0:
+          destination: spO2
+        receiveSpO2-in-0:
+          destination: spO2
+      kafka:
+        binder:
+          brokers: localhost:9093
+    function:
+      definition: sendSpO2; receiveSpO2
+  graphql:
+    graphiql:
+      enabled: true
+  sql:
+    init:
+      mode: always
+

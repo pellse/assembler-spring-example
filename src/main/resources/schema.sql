@@ -1,5 +1,5 @@
-create table if not exists patient
+CREATE TABLE IF NOT EXISTS patient
 (
-    id serial primary key,
-    name varchar(255) not null
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL
 );

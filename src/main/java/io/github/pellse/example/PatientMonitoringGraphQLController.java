@@ -1,11 +1,11 @@
 package io.github.pellse.example;
 
 import io.github.pellse.example.bodymeasurement.BodyMeasure;
-import io.github.pellse.example.bodymeasurement.BodyMeasureService;
+import io.github.pellse.example.bodymeasurement.BodyMeasurementService;
 import io.github.pellse.example.patient.Patient;
-import io.github.pellse.example.patient.PatientService;
-import io.github.pellse.example.spo2.SpO2;
-import io.github.pellse.example.spo2.SpO2Service;
+import io.github.pellse.example.patient.PatientRepository;
+import io.github.pellse.example.spO2.SpO2;
+import io.github.pellse.example.spO2.SpO2StreamingService;
 import io.github.pellse.reactive.assembler.Rule.BatchRule;
 import org.springframework.graphql.data.method.annotation.BatchMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
@@ -19,34 +19,35 @@ import java.util.Map;
 import static io.github.pellse.reactive.assembler.Rule.batchRule;
 import static io.github.pellse.reactive.assembler.RuleMapper.oneToMany;
 import static io.github.pellse.reactive.assembler.RuleMapper.oneToOne;
+import static io.github.pellse.reactive.assembler.caching.AutoCacheFactory.autoCache;
 import static io.github.pellse.reactive.assembler.caching.CacheFactory.cached;
 
 @Controller
 public class PatientMonitoringGraphQLController {
 
-    private final PatientService patientService;
-    private final BatchRule<Patient, BodyMeasure> bodyMeasureBatchRule;
-    private final BatchRule<Patient, List<SpO2>> spO2BatchRule;
+    private final PatientRepository patientRepository;
+    private final BatchRule<Patient, BodyMeasure> bodyMeasurementBatchRule; // Body Height and Weight
+    private final BatchRule<Patient, List<SpO2>> spO2BatchRule; // Oxygen Saturation
 
-    PatientMonitoringGraphQLController(PatientService patientService, BodyMeasureService bodyMeasureService, SpO2Service spO2Service) {
+    PatientMonitoringGraphQLController(PatientRepository pr, BodyMeasurementService bms, SpO2StreamingService spO2ss) {
 
-        this.patientService = patientService;
+        this.patientRepository = pr;
 
-        this.bodyMeasureBatchRule = batchRule(BodyMeasure::patientId, oneToOne(cached(bodyMeasureService::retrieveBodyMeasure)))
+        this.bodyMeasurementBatchRule = batchRule(BodyMeasure::patientId, oneToOne(cached(bms::retrieveBodyMeasure)))
                 .withIdExtractor(Patient::id);
 
-        this.spO2BatchRule = batchRule(SpO2::patientId, oneToMany(SpO2::id, cached(spO2Service::retrieveSpO2)))
+        this.spO2BatchRule = batchRule(SpO2::patientId, oneToMany(SpO2::id, cached(autoCache(spO2ss::spO2Flux))))
                 .withIdExtractor(Patient::id);
     }
 
     @QueryMapping
     Flux<Patient> patients() {
-        return patientService.retrieveAllPatients();
+        return patientRepository.findAll();
     }
 
     @BatchMapping
-    Mono<Map<Patient, BodyMeasure>> bodyMeasurement(List<Patient> patients) {
-        return bodyMeasureBatchRule.executeToMono(patients);
+    Mono<Map<Patient, BodyMeasure>> bodyMeasure(List<Patient> patients) {
+        return bodyMeasurementBatchRule.executeToMono(patients);
     }
 
     @BatchMapping

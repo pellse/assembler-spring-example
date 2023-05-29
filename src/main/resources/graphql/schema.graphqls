@@ -7,11 +7,11 @@ type Query {
 type Patient {
     id: ID
     name: String
-    bodyMeasurement: BodyMeasurement
+    bodyMeasure: BodyMeasure
     spO2: [SpO2]
 }
 
-type BodyMeasurement {
+type BodyMeasure {
     id: ID
     patientId: Int
     height: Int
