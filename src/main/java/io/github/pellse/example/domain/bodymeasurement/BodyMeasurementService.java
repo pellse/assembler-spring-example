@@ -1,4 +1,4 @@
-package io.github.pellse.example.bodymeasurement;
+package io.github.pellse.example.domain.bodymeasurement;
 
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;

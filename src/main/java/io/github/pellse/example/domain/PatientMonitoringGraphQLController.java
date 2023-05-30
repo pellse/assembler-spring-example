@@ -1,11 +1,11 @@
-package io.github.pellse.example;
+package io.github.pellse.example.domain;
 
-import io.github.pellse.example.bodymeasurement.BodyMeasurement;
-import io.github.pellse.example.bodymeasurement.BodyMeasurementService;
-import io.github.pellse.example.patient.Patient;
-import io.github.pellse.example.patient.PatientRepository;
-import io.github.pellse.example.spO2.SpO2;
-import io.github.pellse.example.spO2.SpO2StreamingService;
+import io.github.pellse.example.domain.bodymeasurement.BodyMeasurement;
+import io.github.pellse.example.domain.bodymeasurement.BodyMeasurementService;
+import io.github.pellse.example.domain.patient.Patient;
+import io.github.pellse.example.domain.patient.PatientRepository;
+import io.github.pellse.example.domain.spo2.SpO2;
+import io.github.pellse.example.domain.spo2.SpO2StreamingService;
 import io.github.pellse.reactive.assembler.Rule.BatchRule;
 import org.springframework.graphql.data.method.annotation.BatchMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;

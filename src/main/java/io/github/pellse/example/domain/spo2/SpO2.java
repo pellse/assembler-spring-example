@@ -1,4 +1,4 @@
-package io.github.pellse.example.spO2;
+package io.github.pellse.example.domain.spo2;
 
 import org.springframework.data.annotation.Id;
 
