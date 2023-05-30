@@ -1,4 +1,4 @@
-package io.github.pellse.example.domain;
+package io.github.pellse.example;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -9,6 +9,7 @@ import org.testcontainers.containers.KafkaContainer;
 import org.testcontainers.containers.MongoDBContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
 
+import static java.lang.String.format;
 import static org.testcontainers.utility.DockerImageName.parse;
 
 @TestConfiguration(proxyBeanMethods = false)
@@ -37,7 +38,7 @@ public class PatientMonitoringApplicationTest {
     @Bean
     public KafkaContainer kafka(DynamicPropertyRegistry registry) {
         var kafka = new KafkaContainer(parse("confluentinc/cp-kafka:7.4.0"));
-        registry.add("spring.kafka.properties.bootstrap.servers", () -> kafka.getHost() + ":" + kafka.getFirstMappedPort());
+        registry.add("spring.kafka.properties.bootstrap.servers", () -> format("%s:%s", kafka.getHost(), kafka.getFirstMappedPort()));
         return kafka;
     }
 }

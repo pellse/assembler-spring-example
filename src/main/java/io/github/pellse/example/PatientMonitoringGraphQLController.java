@@ -1,4 +1,4 @@
-package io.github.pellse.example.domain;
+package io.github.pellse.example;
 
 import io.github.pellse.example.domain.bodymeasurement.BodyMeasurement;
 import io.github.pellse.example.domain.bodymeasurement.BodyMeasurementService;
