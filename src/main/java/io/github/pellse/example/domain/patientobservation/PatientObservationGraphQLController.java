@@ -1,9 +1,9 @@
-package io.github.pellse.example;
+package io.github.pellse.example.domain.patientobservation;
 
 import io.github.pellse.example.domain.bodymeasurement.BodyMeasurement;
 import io.github.pellse.example.domain.bodymeasurement.BodyMeasurementService;
 import io.github.pellse.example.domain.patient.Patient;
-import io.github.pellse.example.domain.patient.PatientRepository;
+import io.github.pellse.example.domain.patient.PatientService;
 import io.github.pellse.example.domain.spo2.SpO2;
 import io.github.pellse.example.domain.spo2.SpO2StreamingService;
 import io.github.pellse.reactive.assembler.Rule.BatchRule;
@@ -23,17 +23,17 @@ import static io.github.pellse.reactive.assembler.caching.AutoCacheFactory.autoC
 import static io.github.pellse.reactive.assembler.caching.CacheFactory.cached;
 
 @Controller
-public class PatientMonitoringGraphQLController {
+public class PatientObservationGraphQLController {
 
-    private final PatientRepository patientRepository;
+    private final PatientService patientService;
     private final BatchRule<Patient, BodyMeasurement> bodyMeasurementBatchRule; // Body Height and Weight
     private final BatchRule<Patient, List<SpO2>> spO2BatchRule; // Oxygen Saturation from pulse oximeter device (IOT)
 
-    PatientMonitoringGraphQLController(PatientRepository pr, BodyMeasurementService bms, SpO2StreamingService spO2ss) {
+    PatientObservationGraphQLController(PatientService ps, BodyMeasurementService bms, SpO2StreamingService spO2ss) {
 
-        this.patientRepository = pr;
+        this.patientService = ps;
 
-        this.bodyMeasurementBatchRule = batchRule(BodyMeasurement::patientId, oneToOne(cached(bms::retrieveBodyMeasurement)))
+        this.bodyMeasurementBatchRule = batchRule(BodyMeasurement::patientId, oneToOne(cached(bms::retrieveBodyMeasurements)))
                 .withIdExtractor(Patient::id);
 
         this.spO2BatchRule = batchRule(SpO2::patientId, oneToMany(SpO2::id, cached(autoCache(spO2ss::spO2Flux))))
@@ -42,7 +42,7 @@ public class PatientMonitoringGraphQLController {
 
     @QueryMapping
     Flux<Patient> patients() {
-        return patientRepository.findAll();
+        return patientService.findAllPatients();
     }
 
     @BatchMapping
