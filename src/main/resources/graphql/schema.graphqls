@@ -4,6 +4,10 @@ type Query {
     patients: [Patient]
 }
 
+type Subscription {
+    newSpO2Readings: SpO2
+}
+
 type Patient {
     id: ID
     name: String
@@ -22,6 +26,6 @@ type BodyMeasurement {
 type SpO2 {
     id: ID
     patientId: Int,
-    percentage: Int,
+    spO2Value: Int,
     time: LocalDateTime
 }
