@@ -6,9 +6,6 @@ spring:
           destination: spO2
         receiveSpO2-in-0:
           destination: spO2
-      kafka:
-        binder:
-          brokers: localhost:9093
     function:
       definition: sendSpO2; receiveSpO2
   graphql:
@@ -17,4 +14,3 @@ spring:
   sql:
     init:
       mode: always
-
