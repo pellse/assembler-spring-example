@@ -2,7 +2,6 @@ plugins {
     java
     id("org.springframework.boot") version "3.1.0"
     id("io.spring.dependency-management") version "1.1.0"
-//    id("org.graalvm.buildtools.native") version "0.9.20"
 }
 
 group = "io.github.pellse"
@@ -20,25 +19,17 @@ extra["springCloudVersion"] = "2022.0.3"
 dependencies {
     implementation("io.github.pellse:reactive-assembler-core:0.6.6-SNAPSHOT")
     implementation("com.tailrocks.graphql:graphql-datetime-spring-boot-starter:6.0.0")
-//    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb-reactive")
     implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
     implementation("org.springframework.boot:spring-boot-starter-graphql")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
-//    implementation("org.apache.kafka:kafka-streams")
-//    implementation("org.springframework.cloud:spring-cloud-function-web")
     implementation("org.springframework.cloud:spring-cloud-stream")
     implementation("org.springframework.cloud:spring-cloud-stream-binder-kafka-reactive")
-//    implementation("org.springframework.cloud:spring-cloud-starter-stream-kafka")
-    implementation("org.springframework.kafka:spring-kafka")
     testImplementation("org.springframework.boot:spring-boot-devtools")
-//    runtimeOnly("org.postgresql:postgresql")
     runtimeOnly("org.postgresql:r2dbc-postgresql")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")
-//    testImplementation("org.springframework.cloud:spring-cloud-stream-test-binder")
     testImplementation("org.springframework.graphql:spring-graphql-test")
-//    testImplementation("org.springframework.kafka:spring-kafka-test")
     testImplementation("org.springframework.boot:spring-boot-testcontainers")
     testImplementation("org.testcontainers:r2dbc:1.18.1")
     testImplementation("org.testcontainers:postgresql:1.18.1")
