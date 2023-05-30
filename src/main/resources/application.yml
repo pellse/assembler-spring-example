@@ -9,6 +9,9 @@ spring:
     function:
       definition: sendSpO2; receiveSpO2
   graphql:
+    path: /graphql
+    websocket:
+      path: /graphql
     graphiql:
       enabled: true
   sql:
