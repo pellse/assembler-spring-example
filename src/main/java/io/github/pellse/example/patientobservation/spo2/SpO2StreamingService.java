@@ -1,4 +1,4 @@
-package io.github.pellse.example.domain.spo2;
+package io.github.pellse.example.patientobservation.spo2;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.messaging.Message;
@@ -9,7 +9,7 @@ import reactor.core.publisher.Sinks;
 
 import java.util.function.Function;
 
-import static io.github.pellse.example.util.StreamUtils.messageHandler;
+import static io.github.pellse.example.util.MessageUtils.messageHandler;
 
 @Service
 public class SpO2StreamingService {

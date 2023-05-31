@@ -1,11 +1,11 @@
-package io.github.pellse.example.domain.patientobservation;
+package io.github.pellse.example.patientobservation;
 
-import io.github.pellse.example.domain.bodymeasurement.BodyMeasurement;
-import io.github.pellse.example.domain.bodymeasurement.BodyMeasurementService;
-import io.github.pellse.example.domain.patient.Patient;
-import io.github.pellse.example.domain.patient.PatientService;
-import io.github.pellse.example.domain.spo2.SpO2;
-import io.github.pellse.example.domain.spo2.SpO2StreamingService;
+import io.github.pellse.example.patientobservation.bodymeasurement.BodyMeasurement;
+import io.github.pellse.example.patientobservation.bodymeasurement.BodyMeasurementService;
+import io.github.pellse.example.patientobservation.patient.Patient;
+import io.github.pellse.example.patientobservation.patient.PatientService;
+import io.github.pellse.example.patientobservation.spo2.SpO2;
+import io.github.pellse.example.patientobservation.spo2.SpO2StreamingService;
 import io.github.pellse.reactive.assembler.Rule.BatchRule;
 import org.springframework.graphql.data.method.annotation.BatchMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
@@ -26,10 +26,13 @@ import static io.github.pellse.reactive.assembler.caching.CacheFactory.cached;
 public class PatientObservationGraphQLController {
 
     private final PatientService patientService;
-    private final BatchRule<Patient, BodyMeasurement> bodyMeasurementBatchRule; // Body Height and Weight
-    private final BatchRule<Patient, List<SpO2>> spO2BatchRule; // Oxygen Saturation from pulse oximeter device (IOT)
+    private final BatchRule<Patient, BodyMeasurement> bodyMeasurementBatchRule;
+    private final BatchRule<Patient, List<SpO2>> spO2BatchRule;
 
-    PatientObservationGraphQLController(PatientService ps, BodyMeasurementService bms, SpO2StreamingService spO2ss) {
+    PatientObservationGraphQLController(
+            PatientService ps,                          // Connects to PostgreSQL, Patient Demographics
+            BodyMeasurementService bms,     // Connects to MongoDB, Body Height and Weight Patient Observation
+            SpO2StreamingService spO2ss) {   // Connects to Kafka, Real-time Oxygen Saturation from pulse oximeter device (IOT)
 
         this.patientService = ps;
 

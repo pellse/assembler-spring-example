@@ -1,4 +1,4 @@
-package io.github.pellse.example.domain.patient;
+package io.github.pellse.example.patientobservation.patient;
 
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;

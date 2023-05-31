@@ -11,7 +11,7 @@ import java.util.function.Function;
 import static org.springframework.kafka.support.KafkaHeaders.ACKNOWLEDGMENT;
 import static reactor.core.publisher.Mono.just;
 
-public interface StreamUtils {
+public interface MessageUtils {
 
     static <T> Function<Flux<Message<T>>, Mono<Void>> messageHandler(Function<T, Sinks.EmitResult> handler) {
 
