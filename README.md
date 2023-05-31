@@ -5,7 +5,7 @@ This repository showcases the integration of the [Assembler Library](https://git
 ## Scenario
 This example demonstrates a basic healthcare application for simulating monitoring patient data. Three services are implemented: the Patient Service for retrieving patient demographics from PostgreSQL, the Body Measurement Service for retrieving patient's height and weight from MongoDB, and the SpO2 Streaming Service for real-time oxygen saturation monitoring from a pulse oximeter device via Kafka. A GraphQL Controller is implemented in `PatientObservationGraphQLController` to aggregate data from these services.
 
-## Assembler + Spring GraphQL for API Composition and the N + 1 Query Problem
+## Assembler + Spring GraphQL for API Composition and N + 1 Query Problem
 
 The new `BatchRule` API from the Assembler Library seamlessly integrates with the Spring GraphQL [@BatchMapping](https://docs.spring.io/spring-graphql/docs/current/reference/html/#controllers.batch-mapping) mechanism, as shown in the usage example found in `PatientObservationGraphQLController`. Additionally, this example showcases additional features of the Assembler Library, including:
 - caching of service invocations using the [cached()](https://github.com/pellse/assembler#reactive-caching) function
