@@ -24,7 +24,7 @@ This repository takes advantage of the new [Spring Boot 3.1.0 Testcontainers sup
 ## How to Use the Application
 - Open a browser at http://localhost:8080/graphiql?path=/graphql
 - Run the following GraphQL Query:
-```json
+```js
 {
   patientObservations: patients {
     name
@@ -41,6 +41,7 @@ This repository takes advantage of the new [Spring Boot 3.1.0 Testcontainers sup
 }
 ```
 Periodically rerun the query, the number of `SpO2` values for each patient should increase.
+![Assembler](./images/GraphQL%20Query.png)
 
 ## What's Next
 
