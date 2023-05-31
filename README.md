@@ -9,15 +9,15 @@ This example demonstrates a basic healthcare application for simulating monitori
 The new `BatchRule` API from the Assembler Library provides seemless integration with the [@BatchMapping](https://docs.spring.io/spring-graphql/docs/current/reference/html/#controllers.batch-mapping) mechanism. Example of its usage is found in `PatientObservationGraphQLController`
 
 This example also demonstrates some additional features of the Assembler Library:
-- Caching of service invocations through the [cached()]{https://github.com/pellse/assembler#reactive-caching) function
-- Caching of real-time data streams through the [autoCache()]{https://github.com/pellse/assembler#auto-caching) function
+- Caching of service invocations through the [cached()](https://github.com/pellse/assembler#reactive-caching) function
+- Caching of real-time data streams through the [autoCache()](https://github.com/pellse/assembler#auto-caching) function
 
 ![Assembler](./images/PatientObservationGraphQLController.png)
 
 ## How to Run the Application
 - Make sure Docker is installed
 - Run the `main` method in *src\test\java\io\github\pellse\example\PatientMonitoringApplicationTest.java*
-- Execute the *bootTestRun* Gradle Task
+  - Or execute the *bootTestRun* Gradle Task
 
 This repository takes advantage of the new [Spring Boot 3.1.0 Testcontainers support](https://www.atomicjar.com/2023/05/spring-boot-3-1-0-testcontainers-for-testing-and-local-development/) for local development.
 
