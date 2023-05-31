@@ -26,6 +26,7 @@ import static io.github.pellse.reactive.assembler.caching.CacheFactory.cached;
 public class PatientObservationGraphQLController {
 
     private final PatientService patientService;
+
     private final BatchRule<Patient, BodyMeasurement> bodyMeasurementBatchRule;
     private final BatchRule<Patient, List<SpO2>> spO2BatchRule;
 
