@@ -1,12 +1,12 @@
 package io.github.pellse.example.patientobservation;
 
+import io.github.pellse.cohereflux.Rule.BatchRule;
 import io.github.pellse.example.patientobservation.bodymeasurement.BodyMeasurement;
 import io.github.pellse.example.patientobservation.bodymeasurement.BodyMeasurementService;
 import io.github.pellse.example.patientobservation.patient.Patient;
 import io.github.pellse.example.patientobservation.patient.PatientService;
 import io.github.pellse.example.patientobservation.spo2.SpO2;
 import io.github.pellse.example.patientobservation.spo2.SpO2StreamingService;
-import io.github.pellse.reactive.assembler.Rule.BatchRule;
 import org.springframework.graphql.data.method.annotation.BatchMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
@@ -16,12 +16,12 @@ import reactor.core.publisher.Mono;
 import java.util.List;
 import java.util.Map;
 
-import static io.github.pellse.reactive.assembler.Rule.withIdResolver;
-import static io.github.pellse.reactive.assembler.RuleMapper.oneToMany;
-import static io.github.pellse.reactive.assembler.RuleMapper.oneToOne;
-import static io.github.pellse.reactive.assembler.cache.caffeine.CaffeineCacheFactory.caffeineCache;
-import static io.github.pellse.reactive.assembler.caching.AutoCacheFactory.autoCache;
-import static io.github.pellse.reactive.assembler.caching.CacheFactory.cached;
+import static io.github.pellse.cohereflux.Rule.withIdResolver;
+import static io.github.pellse.cohereflux.RuleMapper.oneToMany;
+import static io.github.pellse.cohereflux.RuleMapper.oneToOne;
+import static io.github.pellse.cohereflux.cache.caffeine.CaffeineCacheFactory.caffeineCache;
+import static io.github.pellse.cohereflux.caching.AutoCacheFactory.autoCache;
+import static io.github.pellse.cohereflux.caching.CacheFactory.cached;
 
 @Controller
 public class PatientObservationGraphQLController {

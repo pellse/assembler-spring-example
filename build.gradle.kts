@@ -19,7 +19,6 @@ extra["springCloudVersion"] = "2022.0.3"
 dependencies {
     implementation("io.github.pellse:reactive-assembler-core:0.6.7-SNAPSHOT")
     implementation("io.github.pellse:reactive-assembler-cache-caffeine:0.6.7-SNAPSHOT")
-    implementation("io.github.pellse:assembler-util:0.6.7-SNAPSHOT")
     implementation ("com.github.ben-manes.caffeine:caffeine:3.1.6")
     implementation("com.tailrocks.graphql:graphql-datetime-spring-boot-starter:6.0.0")
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb-reactive")
