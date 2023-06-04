@@ -21,7 +21,7 @@ import static java.time.Duration.ofSeconds;
 @Controller
 public class SpO2MonitoringGraphQLController {
 
-    private final Assembler<SpO2, Flux<SpO2Reading>> spO2ReadingAssembler;
+    private final Assembler<SpO2, SpO2Reading> spO2ReadingAssembler;
 
     private final SpO2StreamingService spO2StreamingService;
 
