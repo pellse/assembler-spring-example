@@ -1,4 +1,4 @@
-# assembler-example
+# CohereFlux-example
 
 This repository showcases the integration of the [Assembler Library](https://github.com/pellse/Assembler) with [Spring GraphQL](https://spring.io/projects/spring-graphql) to aggregate data from multiple sources in a single query. This combination serves as a powerful tool for implementing API composition, facilitating efficient data retrieval while reducing the complexity of client-side data aggregation.
 

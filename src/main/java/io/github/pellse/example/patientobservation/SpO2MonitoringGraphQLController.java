@@ -21,7 +21,7 @@ import static java.time.Duration.ofSeconds;
 @Controller
 public class SpO2MonitoringGraphQLController {
 
-    private final CohereFlux<SpO2, SpO2Reading> spO2ReadingAssembler;
+    private final CohereFlux<SpO2, SpO2Reading> spO2ReadingCohereFlux;
 
     private final SpO2StreamingService spO2StreamingService;
 
@@ -32,7 +32,7 @@ public class SpO2MonitoringGraphQLController {
 
         this.spO2StreamingService = spO2StreamingService;
 
-        spO2ReadingAssembler = cohereFluxOf(SpO2Reading.class)
+        spO2ReadingCohereFlux = cohereFluxOf(SpO2Reading.class)
                 .withCorrelationIdResolver(SpO2::patientId)
                 .withRules(
                         rule(Patient::id, oneToOne(cached(call(SpO2::healthCardNumber, patientService::findPatientsByHealthCardNumber)))),
@@ -46,7 +46,7 @@ public class SpO2MonitoringGraphQLController {
 
         return spO2StreamingService.spO2Flux()
                 .window(3)
-                .flatMapSequential(spO2ReadingAssembler::process)
+                .flatMapSequential(spO2ReadingCohereFlux::process)
                 .delayElements(ofSeconds(1));
     }
 

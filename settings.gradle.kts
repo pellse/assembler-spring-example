@@ -1,1 +1,1 @@
-rootProject.name = "assembler-example"
+rootProject.name = "cohereflux-example"
