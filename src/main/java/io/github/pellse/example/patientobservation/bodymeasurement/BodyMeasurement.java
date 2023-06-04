@@ -4,5 +4,5 @@ import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
 
-public record BodyMeasurement(@Id String id, Integer patientId, int height, int weight, LocalDateTime time) {
+public record BodyMeasurement(@Id String id, Integer patientId, String healthCardNumber, int height, int weight, LocalDateTime time) {
 }

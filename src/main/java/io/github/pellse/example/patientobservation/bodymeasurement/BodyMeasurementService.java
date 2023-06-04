@@ -1,5 +1,6 @@
 package io.github.pellse.example.patientobservation.bodymeasurement;
 
+import io.github.pellse.example.patientobservation.patient.Patient;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 
@@ -14,7 +15,11 @@ public class BodyMeasurementService {
         this.bodyMeasurementRepository = bodyMeasurementRepository;
     }
 
-    public Flux<BodyMeasurement> retrieveBodyMeasurements(List<Integer> patientIds) {
+    public Flux<BodyMeasurement> retrieveBodyMeasurements(List<Patient> patients) {
+        return getBodyMeasurements(patients.stream().map(Patient::id).toList());
+    }
+
+    public Flux<BodyMeasurement> getBodyMeasurements(List<Integer> patientIds) {
         return bodyMeasurementRepository.findByPatientIdIn(patientIds);
     }
 }

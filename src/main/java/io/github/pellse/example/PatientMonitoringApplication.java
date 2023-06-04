@@ -13,16 +13,27 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import reactor.core.publisher.Flux;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 import static java.lang.Math.random;
 import static java.time.Duration.ofSeconds;
 import static java.time.LocalDateTime.now;
+import static java.util.Map.entry;
+import static java.util.stream.Collectors.toMap;
 
 @SpringBootApplication
 public class PatientMonitoringApplication implements ApplicationListener<ApplicationReadyEvent> {
+
+    private static final Map<Integer, Patient> PATIENT_MAP = Stream.of(
+                    entry(1, new Patient(null, "Claire Gabriel", "GABC 6709 1206")),
+                    entry(2, new Patient(null, "Erick Daria", "DARE 7802 2112")),
+                    entry(3, new Patient(null, "Brenden Jacob", "JACB 8206 1405")))
+            .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (o, o2) -> o2, LinkedHashMap::new));
 
     private final PatientRepository patientRepository;
     private final BodyMeasurementRepository bodyMeasurementRepository;
@@ -38,7 +49,7 @@ public class PatientMonitoringApplication implements ApplicationListener<Applica
     }
 
     private static SpO2 randomSpO2(int spO2Id, int patientId) {
-        return new SpO2(spO2Id, patientId, (int) (random() * 8) + 92, now()); // Oxygen Saturation between 92% and 100%
+        return new SpO2(spO2Id, patientId, PATIENT_MAP.get(patientId).healthCardNumber(), (int) (random() * 8) + 92, now()); // Oxygen Saturation between 92% and 100%
     }
 
     @Bean
@@ -56,17 +67,14 @@ public class PatientMonitoringApplication implements ApplicationListener<Applica
     @Override
     public void onApplicationEvent(@NotNull ApplicationReadyEvent event) {
 
-        patientRepository.saveAll(List.of(
-                        new Patient(null, "Claire Gabriel"),
-                        new Patient(null, "Erick Daria"),
-                        new Patient(null, "Brenden Jacob")))
-                .blockLast();
-
-        bodyMeasurementRepository.saveAll(List.of(
-                        new BodyMeasurement(null, 1, 170, 65, now().minusWeeks(2)),
-                        new BodyMeasurement(null, 2, 165, 62, now().minusWeeks(3)),
-                        new BodyMeasurement(null, 3, 175, 76, now().minusWeeks(4))
-                ))
+        patientRepository
+                .saveAll(PATIENT_MAP.values())
+                .collectList()
+                .flatMapMany(patients -> bodyMeasurementRepository.saveAll(List.of(
+                        new BodyMeasurement(null, patients.get(0).id(), patients.get(0).healthCardNumber(), 170, 65, now().minusWeeks(2)),
+                        new BodyMeasurement(null, patients.get(1).id(), patients.get(1).healthCardNumber(), 165, 62, now().minusWeeks(3)),
+                        new BodyMeasurement(null, patients.get(2).id(), patients.get(2).healthCardNumber(), 175, 76, now().minusWeeks(4))
+                )))
                 .blockLast();
     }
 }

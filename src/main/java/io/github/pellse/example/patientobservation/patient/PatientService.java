@@ -2,7 +2,6 @@ package io.github.pellse.example.patientobservation.patient;
 
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -19,11 +18,7 @@ public class PatientService {
         return patientRepository.findAll();
     }
 
-    public Flux<Patient> findPatients(List<Integer> patientIds) {
-        return patientRepository.findAllById(patientIds);
-    }
-
-    public Mono<Patient> findPatient(int patientId) {
-        return patientRepository.findById(patientId);
+    public Flux<Patient> findPatientsByHealthCardNumber(List<String> healthCardNumbers) {
+        return patientRepository.findAllByHealthCardNumberIn(healthCardNumbers);
     }
 }
