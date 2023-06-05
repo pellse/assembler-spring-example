@@ -50,10 +50,6 @@ This repository takes advantage of the new [Spring Boot 3.1.0 Testcontainers sup
 Periodically rerun the query, the number of `SpO2` values for each patient should increase.
 ![Assembler](./images/GraphQL%20Query.png)
 
-## What's Next
-
-This repository will be updated in the near future with an example of integrating CohereFlux with Spring GraphQL using the [@SubscriptionMapping](https://docs.spring.io/spring-graphql/docs/current/reference/html/#controllers.schema-mapping) annotation. This integration will demonstrate how to augment a data stream connected to the client via WebSockets.
-
 ## Tech stack
 - [Assembler Library](https://github.com/pellse/Assembler)
 - [Spring GraphQL](https://spring.io/projects/spring-graphql)
