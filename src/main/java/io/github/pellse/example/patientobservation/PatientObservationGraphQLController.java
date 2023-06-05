@@ -61,3 +61,7 @@ public class PatientObservationGraphQLController {
         return spO2BatchRule.executeToFlux(patients);
     }
 }
+
+
+
+
