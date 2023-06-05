@@ -9,13 +9,17 @@ This example demonstrates a basic healthcare application for simulating monitori
 
 ## CohereFlux + Spring GraphQL for API Composition and N + 1 Query Problem
 
+### Batch Mapping (Data Querying)
 The new `BatchRule` API from CohereFlux seamlessly integrates with the Spring GraphQL [@BatchMapping](https://docs.spring.io/spring-graphql/docs/current/reference/html/#controllers.batch-mapping) mechanism, as shown in the usage example found in `PatientObservationGraphQLController`. Additionally, this example showcases additional features of CohereFlux, including:
 - caching of service invocations using the [cached()](https://github.com/pellse/assembler#reactive-caching) function
 - caching of real-time data streams with the [autoCache()](https://github.com/pellse/assembler#auto-caching) function.
 
 ![CohereFlux](./images/PatientObservationGraphQLController.png)
 
+### Subscription Mapping (Data Streaming)
+CohereFlux excels in complex data aggregation within a data streaming scenario, especially when integrated with Spring GraphQL using [@SubscriptionMapping](https://docs.spring.io/spring-graphql/docs/current/reference/html/#controllers.schema-mapping). By combining streaming and batching, CohereFlux enables seamless data stream augmentation for clients connected via WebSockets, which goes beyond the native streaming support provided by GraphQL.
 
+![CohereFlux](./images/SpO2MonitoringGraphQLController.png)
 
 ## How to Run the Application
 - Make sure Docker is installed
