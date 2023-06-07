@@ -17,8 +17,8 @@ repositories {
 extra["springCloudVersion"] = "2022.0.3"
 
 dependencies {
-    implementation("io.github.pellse:cohereflux-core:0.7.0")
-    implementation("io.github.pellse:cohereflux-cache-caffeine:0.7.0")
+    implementation("io.github.pellse:cohereflux-core:0.7.1")
+    implementation("io.github.pellse:cohereflux-cache-caffeine:0.7.1")
     implementation ("com.github.ben-manes.caffeine:caffeine:3.1.6")
     implementation("com.tailrocks.graphql:graphql-datetime-spring-boot-starter:6.0.0")
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb-reactive")
