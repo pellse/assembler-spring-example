@@ -50,7 +50,7 @@ Open a browser at http://localhost:8080/graphiql?path=/graphql
   }
 }
 ```
-Periodically rerun the query, the number of `SpO2` values for each patient should increase.
+Periodically rerun the query, the number of `SpO2` values for each patient should increase:
 ![PatientObservationGraphQLController](https://github.com/pellse/cohereflux-example/assets/23351878/43051d61-76e8-4c5a-9209-f629c8955cb2)
 
 #### For Subscription Mapping (Data Streaming)
@@ -79,8 +79,8 @@ You should see the following:
 
 https://github.com/pellse/cohereflux-example/assets/23351878/388f8a65-bffd-4344-9e10-ca720ec2f5cd
 
-## Tech stack
-- [Assembler Library](https://github.com/pellse/Assembler)
+## Tech Stack
+- [CohereFlux](https://github.com/pellse/cohereflux)
 - [Spring GraphQL](https://spring.io/projects/spring-graphql)
 - Spring Data
   - [Reactive PostgreSQL (R2DBC)](https://spring.io/projects/spring-data-r2dbc)
