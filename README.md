@@ -1,4 +1,4 @@
-# CohereFlux-example
+# CohereFlux/Spring GraphQL Example
 
 This repository showcases the standalone usage of [CohereFlux](https://github.com/pellse/cohereflux) + the integration of [CohereFlux](https://github.com/pellse/cohereflux) with [Spring GraphQL](https://spring.io/projects/spring-graphql) to aggregate data from multiple sources in a single query. This combination serves as a powerful tool for implementing API composition, facilitating efficient data retrieval while reducing the complexity of client-side data aggregation.
 
