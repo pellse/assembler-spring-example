@@ -1,18 +1,18 @@
 # CohereFlux-example
 
-This repository showcases the standalone usage of [CohereFlux](https://github.com/pellse/Assembler) + the integration of [CohereFlux](https://github.com/pellse/Assembler) with [Spring GraphQL](https://spring.io/projects/spring-graphql) to aggregate data from multiple sources in a single query. This combination serves as a powerful tool for implementing API composition, facilitating efficient data retrieval while reducing the complexity of client-side data aggregation.
+This repository showcases the standalone usage of [CohereFlux](https://github.com/pellse/cohereflux) + the integration of [CohereFlux](https://github.com/pellse/cohereflux) with [Spring GraphQL](https://spring.io/projects/spring-graphql) to aggregate data from multiple sources in a single query. This combination serves as a powerful tool for implementing API composition, facilitating efficient data retrieval while reducing the complexity of client-side data aggregation.
 
 ## Scenario
 This example demonstrates a basic healthcare application for simulating monitoring patient data. Three services are implemented: the Patient Service for retrieving patient demographics from PostgreSQL, the Body Measurement Service for retrieving patient's height and weight from MongoDB, and the SpO2 Streaming Service for real-time oxygen saturation monitoring from a pulse oximeter device via Kafka. A GraphQL Controller is implemented in `PatientObservationGraphQLController` to aggregate data from these services.
 
-*This sample app was deliberately kept simple to showcase the Assembler/Spring GraphQL integration in a very accessible way. However, it does not incorporate more advanced concepts such as Change Data Capture (CDC) or complex stream processing. Additionally, it does not emphasize any distributed/scalability architecture patterns.*
+*This sample app was deliberately kept simple to showcase the CohereFlux/Spring GraphQL integration in a very accessible way. However, it does not incorporate more advanced concepts such as Change Data Capture (CDC) or complex stream processing. Additionally, it does not emphasize any distributed/scalability architecture patterns.*
 
 ## CohereFlux + Spring GraphQL for API Composition and N + 1 Query Problem
 
 ### Batch Mapping (Data Querying)
 The new `BatchRule` API from CohereFlux seamlessly integrates with the Spring GraphQL [@BatchMapping](https://docs.spring.io/spring-graphql/docs/current/reference/html/#controllers.batch-mapping) mechanism, as shown in the usage example found in `PatientObservationGraphQLController`. Additionally, this example showcases additional features of CohereFlux, including:
-- caching of service invocations using the [cached()](https://github.com/pellse/assembler#reactive-caching) function
-- caching of real-time data streams with the [autoCache()](https://github.com/pellse/assembler#auto-caching) function.
+- caching of service invocations using the [cached()](https://github.com/pellse/cohereflux#reactive-caching) function
+- caching of real-time data streams with the [autoCache()](https://github.com/pellse/cohereflux#auto-caching) function.
 
 ![CohereFlux](./images/PatientObservationGraphQLController.png)
 
