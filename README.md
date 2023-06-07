@@ -29,18 +29,21 @@ CohereFlux excels in complex data aggregation within a data streaming scenario. 
 This repository takes advantage of the new [Spring Boot 3.1.0 Testcontainers support](https://www.atomicjar.com/2023/05/spring-boot-3-1-0-testcontainers-for-testing-and-local-development/) for local development.
 
 ## How to Use the Application
-- Open a browser at http://localhost:8080/graphiql?path=/graphql
+Open a browser at http://localhost:8080/graphiql?path=/graphql
+
+#### For Batch Mapping (Data Querying)
 - Run the following GraphQL Query:
 ```js
 {
   patientObservations: patients {
     name
-    bodyMeasurement {
+    health_card_number: healthCardNumber
+    body_measurement: bodyMeasurement {
       height_cm: height
       weight_kg: weight
       time
     }
-    oxygenSaturation: spO2 {
+    oxygen_saturation: spO2 {
       spO2Value
       time
     }
@@ -48,7 +51,33 @@ This repository takes advantage of the new [Spring Boot 3.1.0 Testcontainers sup
 }
 ```
 Periodically rerun the query, the number of `SpO2` values for each patient should increase.
-![Assembler](./images/GraphQL%20Query.png)
+![PatientObservationGraphQLController](https://github.com/pellse/cohereflux-example/assets/23351878/43051d61-76e8-4c5a-9209-f629c8955cb2)
+
+#### For Subscription Mapping (Data Streaming)
+- Run the following GraphQL Query:
+```js
+subscription {
+  spO2_reading: spO2Reading {
+    oxygen_saturation: spO2 {
+      id
+      value_in_percentage: spO2Value
+      time
+    }
+    patient {
+      id
+      name
+      health_card_number: healthCardNumber
+    }
+    body_measurement: bodyMeasurement {
+      height_cm: height
+      weight_kg: weight
+    }
+  }
+}
+```
+You should see the following:
+
+https://github.com/pellse/cohereflux-example/assets/23351878/388f8a65-bffd-4344-9e10-ca720ec2f5cd
 
 ## Tech stack
 - [Assembler Library](https://github.com/pellse/Assembler)
