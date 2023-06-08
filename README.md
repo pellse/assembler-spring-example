@@ -17,7 +17,7 @@ The new `BatchRule` API from CohereFlux seamlessly integrates with the Spring Gr
 ![CohereFlux](./images/PatientObservationGraphQLController.png)
 
 ### Subscription Mapping (Data Streaming)
-CohereFlux excels in complex data aggregation within a data streaming scenario. This example demonstrates its usage in standalone mode in conjunction with Spring GraphQL using [@SubscriptionMapping](https://docs.spring.io/spring-graphql/docs/current/reference/html/#controllers.schema-mapping). By combining streaming and batching, CohereFlux enables seamless data stream augmentation for clients connected via WebSockets, which goes beyond the native streaming support provided by GraphQL.
+CohereFlux excels in complex data aggregation within a data streaming scenario. This example demonstrates its usage in standalone mode in conjunction with Spring GraphQL using [@SubscriptionMapping](https://docs.spring.io/spring-graphql/docs/current/reference/html/#controllers.schema-mapping). By combining streaming and batching, CohereFlux enables seamless data stream augmentation for clients connected via WebSockets, offering an effective complement to GraphQL's native streaming support.
 
 ![CohereFlux](./images/SpO2MonitoringGraphQLController.png)
 
