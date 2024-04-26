@@ -1,6 +1,6 @@
 package io.github.pellse.example.patientobservation;
 
-import io.github.pellse.cohereflux.Rule.BatchRule;
+import io.github.pellse.assembler.Rule.BatchRule;
 import io.github.pellse.example.patientobservation.bodymeasurement.BodyMeasurement;
 import io.github.pellse.example.patientobservation.bodymeasurement.BodyMeasurementService;
 import io.github.pellse.example.patientobservation.patient.Patient;
@@ -16,12 +16,12 @@ import reactor.core.publisher.Mono;
 import java.util.List;
 import java.util.Map;
 
-import static io.github.pellse.cohereflux.Rule.withIdResolver;
-import static io.github.pellse.cohereflux.RuleMapper.oneToMany;
-import static io.github.pellse.cohereflux.RuleMapper.oneToOne;
-import static io.github.pellse.cohereflux.cache.caffeine.CaffeineCacheFactory.caffeineCache;
-import static io.github.pellse.cohereflux.caching.AutoCacheFactory.autoCache;
-import static io.github.pellse.cohereflux.caching.CacheFactory.cached;
+import static io.github.pellse.assembler.Rule.withIdResolver;
+import static io.github.pellse.assembler.RuleMapper.oneToMany;
+import static io.github.pellse.assembler.RuleMapper.oneToOne;
+import static io.github.pellse.assembler.cache.caffeine.CaffeineCacheFactory.caffeineCache;
+import static io.github.pellse.assembler.caching.AutoCacheFactory.autoCache;
+import static io.github.pellse.assembler.caching.CacheFactory.cached;
 
 @Controller
 public class PatientObservationGraphQLController {

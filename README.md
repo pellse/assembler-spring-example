@@ -1,25 +1,25 @@
-# CohereFlux/Spring GraphQL Example
+# Assembler/Spring GraphQL Example
 
-This repository showcases the standalone usage of [CohereFlux](https://github.com/pellse/cohereflux) + the integration of [CohereFlux](https://github.com/pellse/cohereflux) with [Spring GraphQL](https://spring.io/projects/spring-graphql) to aggregate data from multiple sources in a single query. This combination serves as a powerful tool for implementing API composition, facilitating efficient data retrieval while reducing the complexity of client-side data aggregation.
+This repository showcases the standalone usage of [Assembler](https://github.com/pellse/assembler) + the integration of [Assembler](https://github.com/pellse/assembler) with [Spring GraphQL](https://spring.io/projects/spring-graphql) to aggregate data from multiple sources in a single query. This combination serves as a powerful tool for implementing API composition, facilitating efficient data retrieval while reducing the complexity of client-side data aggregation.
 
 ## Scenario
 This example demonstrates a basic healthcare application for simulating monitoring patient data. Three services are implemented: the Patient Service for retrieving patient demographics from PostgreSQL, the Body Measurement Service for retrieving patient's height and weight from MongoDB, and the SpO2 Streaming Service for real-time oxygen saturation monitoring from a pulse oximeter device via Kafka. A GraphQL Controller is implemented in `PatientObservationGraphQLController` to aggregate data from these services.
 
-*This sample app was deliberately kept simple to showcase the CohereFlux/Spring GraphQL integration in a very accessible way. However, it does not incorporate more advanced concepts such as Change Data Capture (CDC) or complex stream processing. Additionally, it does not emphasize any distributed/scalability architecture patterns.*
+*This sample app was deliberately kept simple to showcase the Assembler/Spring GraphQL integration in a very accessible way. However, it does not incorporate more advanced concepts such as Change Data Capture (CDC) or complex stream processing. Additionally, it does not emphasize any distributed/scalability architecture patterns.*
 
-## CohereFlux + Spring GraphQL for API Composition and N + 1 Query Problem
+## Assembler + Spring GraphQL for API Composition and N + 1 Query Problem
 
 ### Batch Mapping (Data Querying)
-The new `BatchRule` API from CohereFlux seamlessly integrates with the Spring GraphQL [@BatchMapping](https://docs.spring.io/spring-graphql/docs/current/reference/html/#controllers.batch-mapping) mechanism, as shown in the usage example found in `PatientObservationGraphQLController`. Additionally, this example showcases additional features of CohereFlux, including:
-- caching of service invocations using the [cached()](https://github.com/pellse/cohereflux#reactive-caching) function
-- caching of real-time data streams with the [autoCache()](https://github.com/pellse/cohereflux#auto-caching) function.
+The new `BatchRule` API from Assembler seamlessly integrates with the Spring GraphQL [@BatchMapping](https://docs.spring.io/spring-graphql/docs/current/reference/html/#controllers.batch-mapping) mechanism, as shown in the usage example found in `PatientObservationGraphQLController`. Additionally, this example showcases additional features of Assembler, including:
+- caching of service invocations using the [cached()](https://github.com/pellse/assembler#reactive-caching) function
+- caching of real-time data streams with the [autoCache()](https://github.com/pellse/assembler#auto-caching) function.
 
-![CohereFlux](./images/PatientObservationGraphQLController.png)
+![Assembler](./images/PatientObservationGraphQLController.png)
 
 ### Subscription Mapping (Data Streaming)
-CohereFlux excels in complex data aggregation within a data streaming scenario. This example demonstrates its usage in standalone mode in conjunction with Spring GraphQL using [@SubscriptionMapping](https://docs.spring.io/spring-graphql/docs/current/reference/html/#controllers.schema-mapping). By combining streaming and batching, CohereFlux enables seamless data stream augmentation for clients connected via WebSockets, offering an effective complement to GraphQL's native streaming support.
+Assembler excels in complex data aggregation within a data streaming scenario. This example demonstrates its usage in standalone mode in conjunction with Spring GraphQL using [@SubscriptionMapping](https://docs.spring.io/spring-graphql/docs/current/reference/html/#controllers.schema-mapping). By combining streaming and batching, Assembler enables seamless data stream augmentation for clients connected via WebSockets, offering an effective complement to GraphQL's native streaming support.
 
-![CohereFlux](./images/SpO2MonitoringGraphQLController.png)
+![Assembler](./images/SpO2MonitoringGraphQLController.png)
 
 ## How to Run the Application
 - Make sure Docker is installed
@@ -51,7 +51,7 @@ Open a browser at http://localhost:8080/graphiql?path=/graphql
 }
 ```
 Periodically rerun the query, the number of `SpO2` values for each patient should increase:
-![PatientObservationGraphQLController](https://github.com/pellse/cohereflux-example/assets/23351878/43051d61-76e8-4c5a-9209-f629c8955cb2)
+![PatientObservationGraphQLController](https://github.com/pellse/assembler-example/assets/23351878/43051d61-76e8-4c5a-9209-f629c8955cb2)
 
 #### For Subscription Mapping (Data Streaming)
 - Run the following GraphQL Query:
@@ -77,10 +77,10 @@ subscription {
 ```
 You should see the following:
 
-https://github.com/pellse/cohereflux-example/assets/23351878/388f8a65-bffd-4344-9e10-ca720ec2f5cd
+https://github.com/pellse/assembler-example/assets/23351878/388f8a65-bffd-4344-9e10-ca720ec2f5cd
 
 ## Tech Stack
-- [CohereFlux](https://github.com/pellse/cohereflux)
+- [Assembler](https://github.com/pellse/assembler)
 - [Spring GraphQL](https://spring.io/projects/spring-graphql)
 - Spring Data
   - [Reactive PostgreSQL (R2DBC)](https://spring.io/projects/spring-data-r2dbc)
