@@ -1,20 +1,23 @@
 plugins {
     java
-    id("org.springframework.boot") version "3.1.0"
-    id("io.spring.dependency-management") version "1.1.0"
+    id("org.springframework.boot") version "3.2.5"
+    id("io.spring.dependency-management") version "1.1.4"
 }
 
 group = "io.github.pellse"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_21
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+}
 
 repositories {
     mavenLocal()
-    maven { url = uri("https://repo.spring.io/snapshot") }
     mavenCentral()
+    maven { url = uri("https://repo.spring.io/milestone") }
 }
 
-extra["springCloudVersion"] = "2022.0.3"
+extra["springCloudVersion"] = "2023.0.1"
 
 dependencies {
     implementation("io.github.pellse:assembler:0.7.2")
@@ -38,6 +41,8 @@ dependencies {
     testImplementation("org.testcontainers:mongodb:1.18.1")
     testImplementation("org.testcontainers:kafka:1.18.1")
     testImplementation("org.testcontainers:junit-jupiter")
+
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
 }
 
 dependencyManagement {
