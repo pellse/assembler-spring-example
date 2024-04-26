@@ -1,1 +1,1 @@
-rootProject.name = "cohereflux-example"
+rootProject.name = "assembler-spring-graphql-example"
