@@ -13,27 +13,22 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import reactor.core.publisher.Flux;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 import static java.lang.Math.random;
 import static java.time.Duration.ofSeconds;
 import static java.time.LocalDateTime.now;
-import static java.util.Map.entry;
-import static java.util.stream.Collectors.toMap;
 
 @SpringBootApplication
 public class PatientMonitoringApplication implements ApplicationListener<ApplicationReadyEvent> {
 
-    private static final Map<Integer, Patient> PATIENT_MAP = Stream.of(
-                    entry(1, new Patient(null, "Claire Gabriel", "GABC 6709 1206")),
-                    entry(2, new Patient(null, "Erick Daria", "DARE 7802 2112")),
-                    entry(3, new Patient(null, "Brenden Jacob", "JACB 8206 1405")))
-            .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (o, o2) -> o2, LinkedHashMap::new));
+    private static final Map<Integer, Patient> PATIENT_MAP = Map.of(
+                    1, new Patient(null, "Claire Gabriel", "GABC 6709 1206"),
+                    2, new Patient(null, "Erick Daria", "DARE 7802 2112"),
+                    3, new Patient(null, "Brenden Jacob", "JACB 8206 1405"));
 
     private final PatientRepository patientRepository;
     private final BodyMeasurementRepository bodyMeasurementRepository;
