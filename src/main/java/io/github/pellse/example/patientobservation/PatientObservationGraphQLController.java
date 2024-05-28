@@ -21,6 +21,7 @@ import static io.github.pellse.assembler.RuleMapper.oneToMany;
 import static io.github.pellse.assembler.RuleMapper.oneToOne;
 import static io.github.pellse.assembler.caching.AutoCacheFactory.autoCache;
 import static io.github.pellse.assembler.caching.CacheFactory.cached;
+import static io.github.pellse.assembler.caching.CacheFactory.cachedMany;
 
 @Controller
 public class PatientObservationGraphQLController {
@@ -41,7 +42,7 @@ public class PatientObservationGraphQLController {
                 .createRule(BodyMeasurement::patientId, oneToOne(cached(bodyMeasurementService::retrieveBodyMeasurements)));
 
         this.spO2BatchRule = withIdResolver(Patient::id)
-                .createRule(SpO2::patientId, oneToMany(SpO2::id, cached(autoCache(spO2StreamingService::spO2Flux))));
+                .createRule(SpO2::patientId, oneToMany(SpO2::id, cachedMany(autoCache(spO2StreamingService::spO2Flux))));
     }
 
     @QueryMapping
@@ -51,11 +52,11 @@ public class PatientObservationGraphQLController {
 
     @BatchMapping
     Mono<Map<Patient, BodyMeasurement>> bodyMeasurement(List<Patient> patients) {
-        return bodyMeasurementBatchRule.executeToMono(patients);
+        return bodyMeasurementBatchRule.toMono(patients);
     }
 
     @BatchMapping
     Flux<List<SpO2>> spO2(List<Patient> patients) {
-        return spO2BatchRule.executeToFlux(patients);
+        return spO2BatchRule.toFlux(patients);
     }
 }
