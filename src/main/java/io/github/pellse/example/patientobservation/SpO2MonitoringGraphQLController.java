@@ -21,6 +21,9 @@ import static java.time.Duration.ofSeconds;
 @Controller
 public class SpO2MonitoringGraphQLController {
 
+    record SpO2Reading(SpO2 spO2, Patient patient, BodyMeasurement bodyMeasurement) {
+    }
+
     private final Assembler<SpO2, SpO2Reading> spO2ReadingAssembler;
 
     private final SpO2StreamingService spO2StreamingService;
@@ -48,8 +51,5 @@ public class SpO2MonitoringGraphQLController {
                 .window(3)
                 .flatMapSequential(spO2ReadingAssembler::assemble)
                 .delayElements(ofSeconds(1));
-    }
-
-    record SpO2Reading(SpO2 spO2, Patient patient, BodyMeasurement bodyMeasurement) {
     }
 }
