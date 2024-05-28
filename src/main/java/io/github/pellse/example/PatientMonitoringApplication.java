@@ -71,7 +71,7 @@ public class PatientMonitoringApplication implements ApplicationListener<Applica
                 .saveAll(PATIENT_MAP.values())
                 .collectList()
                 .flatMapMany(patients -> bodyMeasurementRepository.saveAll(List.of(
-                        new BodyMeasurement(null, patients.get(0).id(), patients.get(0).healthCardNumber(), 170, 65, now().minusWeeks(2)),
+                        new BodyMeasurement(null, patients.getFirst().id(), patients.getFirst().healthCardNumber(), 170, 65, now().minusWeeks(2)),
                         new BodyMeasurement(null, patients.get(1).id(), patients.get(1).healthCardNumber(), 165, 62, now().minusWeeks(3)),
                         new BodyMeasurement(null, patients.get(2).id(), patients.get(2).healthCardNumber(), 175, 76, now().minusWeeks(4))
                 )))

@@ -4,5 +4,10 @@ import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
 
-public record SpO2(@Id Integer id, Integer patientId, String healthCardNumber, int spO2Value, LocalDateTime time) {
+public record SpO2(
+        @Id Integer id,
+        Integer patientId,
+        String healthCardNumber,
+        int spO2Value,
+        LocalDateTime time) {
 }

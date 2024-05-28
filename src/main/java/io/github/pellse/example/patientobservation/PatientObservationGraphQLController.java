@@ -19,7 +19,6 @@ import java.util.Map;
 import static io.github.pellse.assembler.Rule.withIdResolver;
 import static io.github.pellse.assembler.RuleMapper.oneToMany;
 import static io.github.pellse.assembler.RuleMapper.oneToOne;
-import static io.github.pellse.assembler.cache.caffeine.CaffeineCacheFactory.caffeineCache;
 import static io.github.pellse.assembler.caching.AutoCacheFactory.autoCache;
 import static io.github.pellse.assembler.caching.CacheFactory.cached;
 
@@ -41,9 +40,8 @@ public class PatientObservationGraphQLController {
         this.bodyMeasurementBatchRule = withIdResolver(Patient::id)
                 .createRule(BodyMeasurement::patientId, oneToOne(cached(bodyMeasurementService::retrieveBodyMeasurements)));
 
-
         this.spO2BatchRule = withIdResolver(Patient::id)
-                .createRule(SpO2::patientId, oneToMany(SpO2::id, cached(caffeineCache(), autoCache(spO2StreamingService::spO2Flux))));
+                .createRule(SpO2::patientId, oneToMany(SpO2::id, cached(autoCache(spO2StreamingService::spO2Flux))));
     }
 
     @QueryMapping
