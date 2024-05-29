@@ -1,7 +1,7 @@
 plugins {
     java
-    id("org.springframework.boot") version "3.2.5"
-    id("io.spring.dependency-management") version "1.1.4"
+    id("org.springframework.boot") version "3.3.0"
+    id("io.spring.dependency-management") version "1.1.5"
 }
 
 group = "io.github.pellse"
@@ -21,8 +21,6 @@ extra["springCloudVersion"] = "2023.0.1"
 
 dependencies {
     implementation("io.github.pellse:assembler:0.7.2")
-    implementation("io.github.pellse:assembler-cache-caffeine:0.7.2")
-    implementation ("com.github.ben-manes.caffeine:caffeine:3.1.6")
     implementation("com.tailrocks.graphql:graphql-datetime-spring-boot-starter:6.0.0")
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb-reactive")
     implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
