@@ -20,7 +20,7 @@ repositories {
 extra["springCloudVersion"] = "2023.0.1"
 
 dependencies {
-    implementation("io.github.pellse:assembler:0.7.2")
+    implementation("io.github.pellse:assembler:0.7.3")
     implementation("com.tailrocks.graphql:graphql-datetime-spring-boot-starter:6.0.0")
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb-reactive")
     implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
