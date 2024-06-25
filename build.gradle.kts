@@ -17,10 +17,12 @@ repositories {
     maven { url = uri("https://repo.spring.io/milestone") }
 }
 
-extra["springCloudVersion"] = "2023.0.1"
+extra["springCloudVersion"] = "2023.0.2"
 
 dependencies {
-    implementation("io.github.pellse:assembler:0.7.3")
+    implementation("io.github.pellse:assembler:0.7.4")
+    implementation("io.github.pellse:assembler-spring-cache:0.7.4")
+    implementation ("com.github.ben-manes.caffeine:caffeine:3.1.8")
     implementation("com.tailrocks.graphql:graphql-datetime-spring-boot-starter:6.0.0")
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb-reactive")
     implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
@@ -28,6 +30,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("org.springframework.cloud:spring-cloud-stream")
     implementation("org.springframework.cloud:spring-cloud-stream-binder-kafka-reactive")
+    implementation("org.springframework.boot:spring-boot-starter-cache")
     testImplementation("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("org.postgresql:r2dbc-postgresql")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
@@ -39,6 +42,7 @@ dependencies {
     testImplementation("org.testcontainers:mongodb:1.18.1")
     testImplementation("org.testcontainers:kafka:1.18.1")
     testImplementation("org.testcontainers:junit-jupiter")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 }
