@@ -20,8 +20,8 @@ repositories {
 extra["springCloudVersion"] = "2023.0.2"
 
 dependencies {
-    implementation("io.github.pellse:assembler:0.7.4")
-    implementation("io.github.pellse:assembler-spring-cache:0.7.4")
+    implementation("io.github.pellse:assembler:0.7.5")
+    implementation("io.github.pellse:assembler-spring-cache:0.7.5")
     implementation ("com.github.ben-manes.caffeine:caffeine:3.1.8")
     implementation("com.tailrocks.graphql:graphql-datetime-spring-boot-starter:6.0.0")
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb-reactive")
