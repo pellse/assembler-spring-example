@@ -5,7 +5,7 @@ import org.springframework.data.annotation.Id;
 import java.time.LocalDateTime;
 
 public record SpO2(
-        @Id Integer id,
+        @Id Long id,
         Integer patientId,
         String healthCardNumber,
         int spO2Value,

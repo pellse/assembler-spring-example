@@ -15,7 +15,7 @@ import reactor.core.publisher.Flux;
 
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Supplier;
 
 import static java.lang.Math.random;
@@ -43,14 +43,14 @@ public class PatientMonitoringApplication implements ApplicationListener<Applica
         SpringApplication.run(PatientMonitoringApplication.class, args);
     }
 
-    private static SpO2 randomSpO2(int spO2Id, int patientId) {
+    private static SpO2 randomSpO2(long spO2Id, int patientId) {
         return new SpO2(spO2Id, patientId, PATIENT_MAP.get(patientId).healthCardNumber(), (int) (random() * 8) + 92, now()); // Oxygen Saturation between 92% and 100%
     }
 
     @Bean
     public Supplier<Flux<SpO2>> sendSpO2() {
 
-        var spO2Id = new AtomicInteger(1);
+        var spO2Id = new AtomicLong(1);
 
         return () -> Flux.<SpO2, Integer>generate(() -> 1, (patientId, sink) -> {
                     sink.next(randomSpO2(spO2Id.getAndIncrement(), patientId));
