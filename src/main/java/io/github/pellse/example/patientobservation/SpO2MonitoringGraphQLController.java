@@ -46,7 +46,7 @@ public class SpO2MonitoringGraphQLController {
         spO2ReadingAssembler = assemblerOf(SpO2Reading.class)
                 .withCorrelationIdResolver(SpO2::patientId)
                 .withRules(
-                        rule(Patient::id, oneToOne(cached(call(SpO2::healthCardNumber, patientService::findPatientsByHealthCardNumber), springCache(patientCache)))),
+                        rule(Patient::healthCardNumber, SpO2::healthCardNumber, oneToOne(cached(call(patientService::findPatientsByHealthCardNumber), springCache(patientCache)))),
                         rule(BodyMeasurement::patientId, oneToOne(cached(call(bodyMeasurementService::getBodyMeasurements), springCache(bodyMeasurementCache)))),
                         SpO2Reading::new)
                 .build();
