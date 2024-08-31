@@ -1,14 +1,16 @@
 plugins {
     java
-    id("org.springframework.boot") version "3.3.1"
-    id("io.spring.dependency-management") version "1.1.5"
+    id("org.springframework.boot") version "3.3.3"
+    id("io.spring.dependency-management") version "1.1.6"
 }
 
 group = "io.github.pellse"
 version = "0.0.1-SNAPSHOT"
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_21
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
 }
 
 repositories {
@@ -17,7 +19,7 @@ repositories {
     maven { url = uri("https://repo.spring.io/milestone") }
 }
 
-extra["springCloudVersion"] = "2023.0.2"
+extra["springCloudVersion"] = "2023.0.3"
 
 dependencies {
     implementation("io.github.pellse:assembler:0.7.5")
@@ -40,7 +42,7 @@ dependencies {
     testImplementation("org.testcontainers:r2dbc:1.18.1")
     testImplementation("org.testcontainers:postgresql:1.18.1")
     testImplementation("org.testcontainers:mongodb:1.18.1")
-    testImplementation("org.testcontainers:kafka:1.18.1")
+    testImplementation("org.testcontainers:kafka:1.20.0")
     testImplementation("org.testcontainers:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
