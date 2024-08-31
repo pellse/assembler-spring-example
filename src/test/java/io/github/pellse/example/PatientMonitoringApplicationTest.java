@@ -9,7 +9,6 @@ import org.testcontainers.containers.KafkaContainer;
 import org.testcontainers.containers.MongoDBContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
 
-import static java.lang.String.format;
 import static org.testcontainers.utility.DockerImageName.parse;
 
 @TestConfiguration(proxyBeanMethods = false)
@@ -26,19 +25,19 @@ public class PatientMonitoringApplicationTest {
     @Bean
     @ServiceConnection
     PostgreSQLContainer<?> postgreSQLContainer() {
-        return new PostgreSQLContainer<>("postgres:15.1-alpine");
+        return new PostgreSQLContainer<>(parse("postgres:16.4-alpine"));
     }
 
     @Bean
     @ServiceConnection
     MongoDBContainer mongoDBContainer() {
-        return new MongoDBContainer("mongo:5.0");
+        return new MongoDBContainer(parse("mongo:7.0.3"));
     }
 
     @Bean
     public KafkaContainer kafka(DynamicPropertyRegistry registry) {
-        var kafka = new KafkaContainer(parse("confluentinc/cp-kafka:7.4.0"));
-        registry.add("spring.kafka.properties.bootstrap.servers", () -> format("%s:%s", kafka.getHost(), kafka.getFirstMappedPort()));
+        var kafka = new KafkaContainer(parse("confluentinc/cp-kafka:7.4.6"));
+        registry.add("spring.kafka.properties.bootstrap.servers", () -> "%s:%s".formatted(kafka.getHost(), kafka.getFirstMappedPort()));
         return kafka;
     }
 }
