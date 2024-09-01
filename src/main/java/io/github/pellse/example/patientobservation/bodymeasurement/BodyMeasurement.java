@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 public record BodyMeasurement(
         @Id String id,
-        Integer patientId,
+        int patientId,
         String healthCardNumber,
         int height,
         int weight,

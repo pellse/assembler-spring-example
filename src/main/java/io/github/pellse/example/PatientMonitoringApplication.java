@@ -14,7 +14,6 @@ import org.springframework.context.annotation.Bean;
 import reactor.core.publisher.Flux;
 
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Supplier;
 
@@ -25,16 +24,10 @@ import static java.time.LocalDateTime.now;
 @SpringBootApplication
 public class PatientMonitoringApplication implements ApplicationListener<ApplicationReadyEvent> {
 
-    private static final Map<Integer, Patient> PATIENT_MAP = Map.of(
-                    1, new Patient(null, "Claire Gabriel", "GABC 6709 1206"),
-                    2, new Patient(null, "Erick Daria", "DARE 7802 2112"),
-                    3, new Patient(null, "Brenden Jacob", "JACB 8206 1405"));
-
     private final PatientRepository patientRepository;
     private final BodyMeasurementRepository bodyMeasurementRepository;
 
     PatientMonitoringApplication(PatientRepository patientRepository, BodyMeasurementRepository bodyMeasurementRepository) {
-
         this.patientRepository = patientRepository;
         this.bodyMeasurementRepository = bodyMeasurementRepository;
     }
@@ -43,13 +36,23 @@ public class PatientMonitoringApplication implements ApplicationListener<Applica
         SpringApplication.run(PatientMonitoringApplication.class, args);
     }
 
-    private static SpO2 randomSpO2(long spO2Id, int patientId) {
-        return new SpO2(spO2Id, patientId, PATIENT_MAP.get(patientId).healthCardNumber(), (int) (random() * 8) + 92, now()); // Oxygen Saturation between 92% and 100%
+    @Override
+    public void onApplicationEvent(@NotNull ApplicationReadyEvent event) {
+
+        var patients = List.of(
+                new Patient(null, "Claire Gabriel", "GABC 6709 1206"),
+                new Patient(null, "Erick Daria", "DARE 7802 2112"),
+                new Patient(null, "Brenden Jacob", "JACB 8206 1405"));
+
+        patientRepository
+                .saveAll(patients)
+                .map(PatientMonitoringApplication::randomBodyMeasurement)
+                .transform(bodyMeasurementRepository::saveAll)
+                .blockLast();
     }
 
     @Bean
     public Supplier<Flux<SpO2>> sendSpO2() {
-
         var spO2Id = new AtomicLong(1);
 
         return () -> Flux.<SpO2, Integer>generate(() -> 1, (patientId, sink) -> {
@@ -59,17 +62,17 @@ public class PatientMonitoringApplication implements ApplicationListener<Applica
                 .delayElements(ofSeconds(1));
     }
 
-    @Override
-    public void onApplicationEvent(@NotNull ApplicationReadyEvent event) {
+    private static SpO2 randomSpO2(long spO2Id, int patientId) {
+        return new SpO2(spO2Id, patientId, (int) (random() * 25) + 75, now()); // Oxygen Saturation between 75% and 100%
+    }
 
-        patientRepository
-                .saveAll(PATIENT_MAP.values())
-                .collectList()
-                .flatMapMany(patients -> bodyMeasurementRepository.saveAll(List.of(
-                        new BodyMeasurement(null, patients.getFirst().id(), patients.getFirst().healthCardNumber(), 170, 65, now().minusWeeks(2)),
-                        new BodyMeasurement(null, patients.get(1).id(), patients.get(1).healthCardNumber(), 165, 62, now().minusWeeks(3)),
-                        new BodyMeasurement(null, patients.get(2).id(), patients.get(2).healthCardNumber(), 175, 76, now().minusWeeks(4))
-                )))
-                .blockLast();
+    private static BodyMeasurement randomBodyMeasurement(Patient patient) {
+        return new BodyMeasurement(
+                null,
+                patient.id(),
+                patient.healthCardNumber(),
+                (int) (random() * 20) + 160, // Between 160 cm and 180 cm
+                (int) (random() * 20) + 60, // Between 60 kg and 80 kg
+                now().minusWeeks((long) (random() * 4) + 1)); // Now minus 1 to 5 weeks
     }
 }

@@ -18,6 +18,10 @@ public class PatientService {
         return patientRepository.findAll();
     }
 
+    public Flux<Patient> findPatientsById(List<Integer> patientIds) {
+        return patientRepository.findAllById(patientIds);
+    }
+
     public Flux<Patient> findPatientsByHealthCardNumber(List<String> healthCardNumbers) {
         return patientRepository.findAllByHealthCardNumberIn(healthCardNumbers);
     }

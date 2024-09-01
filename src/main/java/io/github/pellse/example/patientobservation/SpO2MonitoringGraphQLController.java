@@ -33,9 +33,9 @@ public class SpO2MonitoringGraphQLController {
     private final SpO2StreamingService spO2StreamingService;
 
     SpO2MonitoringGraphQLController(
-            PatientService patientService,
-            BodyMeasurementService bodyMeasurementService,
-            SpO2StreamingService spO2StreamingService,
+            PatientService patientService,                                        // Connects to PostgreSQL, Patient Demographics
+            BodyMeasurementService bodyMeasurementService,   // Connects to MongoDB, Body Height and Weight Patient Observation
+            SpO2StreamingService spO2StreamingService,              // Connects to Kafka, Real-time Oxygen Saturation from pulse oximeter device (IOT)
             CacheManager cacheManager) {
 
         final var patientCache = cacheManager.getCache(PATIENT_CACHE);
@@ -46,7 +46,7 @@ public class SpO2MonitoringGraphQLController {
         spO2ReadingAssembler = assemblerOf(SpO2Reading.class)
                 .withCorrelationIdResolver(SpO2::patientId)
                 .withRules(
-                        rule(Patient::healthCardNumber, SpO2::healthCardNumber, oneToOne(cached(call(patientService::findPatientsByHealthCardNumber), springCache(patientCache)))),
+                        rule(Patient::id, oneToOne(cached(call(patientService::findPatientsById), springCache(patientCache)))),
                         rule(BodyMeasurement::patientId, oneToOne(cached(call(bodyMeasurementService::getBodyMeasurements), springCache(bodyMeasurementCache)))),
                         SpO2Reading::new)
                 .build();

@@ -6,8 +6,7 @@ import java.time.LocalDateTime;
 
 public record SpO2(
         @Id Long id,
-        Integer patientId,
-        String healthCardNumber,
+        int patientId,
         int spO2Value,
         LocalDateTime time) {
 }
