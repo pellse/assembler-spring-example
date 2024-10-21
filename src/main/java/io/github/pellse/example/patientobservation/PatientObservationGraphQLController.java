@@ -1,6 +1,6 @@
 package io.github.pellse.example.patientobservation;
 
-import io.github.pellse.assembler.Rule.BatchRule;
+import io.github.pellse.assembler.BatchRule;
 import io.github.pellse.example.patientobservation.bodymeasurement.BodyMeasurement;
 import io.github.pellse.example.patientobservation.bodymeasurement.BodyMeasurementService;
 import io.github.pellse.example.patientobservation.patient.Patient;
@@ -17,7 +17,7 @@ import reactor.core.publisher.Mono;
 import java.util.List;
 import java.util.Map;
 
-import static io.github.pellse.assembler.Rule.withIdResolver;
+import static io.github.pellse.assembler.BatchRule.withIdResolver;
 import static io.github.pellse.assembler.RuleMapper.oneToMany;
 import static io.github.pellse.assembler.RuleMapper.oneToOne;
 import static io.github.pellse.assembler.caching.AutoCacheFactory.autoCache;
