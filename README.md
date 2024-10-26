@@ -7,19 +7,19 @@ This example demonstrates a basic healthcare application for simulating monitori
 
 *This sample app was deliberately kept simple to showcase the Assembler/Spring GraphQL integration in a very accessible way. However, it does not incorporate more advanced concepts such as Change Data Capture (CDC) or complex stream processing. Additionally, it does not emphasize any distributed/scalability architecture patterns.*
 
-## Assembler + Spring GraphQL for API Composition and N + 1 Query Problem
+## Assembler + Spring GraphQL for API Composition and solving the N+1 Query Problem
 
 ### Batch Mapping (Data Querying)
 The new `BatchRule` API from Assembler seamlessly integrates with the Spring GraphQL [@BatchMapping](https://docs.spring.io/spring-graphql/docs/current/reference/html/#controllers.batch-mapping) mechanism, as shown in the usage example found in `PatientObservationGraphQLController`. Additionally, this example showcases additional features of Assembler, including:
 - caching of service invocations using the [cached()](https://github.com/pellse/assembler#reactive-caching) function
 - caching of real-time data streams with the [autoCache()](https://github.com/pellse/assembler#auto-caching) function.
 
-![Assembler](./images/PatientObservationGraphQLController.png)
+![Assembler](./images/PatientObserverGraphQLController.png)
 
 ### Subscription Mapping (Data Streaming)
 Assembler excels in complex data aggregation within a data streaming scenario. This example demonstrates its usage in standalone mode in conjunction with Spring GraphQL using [@SubscriptionMapping](https://docs.spring.io/spring-graphql/docs/current/reference/html/#controllers.schema-mapping). By combining streaming and batching, Assembler enables seamless data stream augmentation for clients connected via WebSockets, offering an effective complement to GraphQL's native streaming support.
 
-![Assembler](./images/SpO2MonitoringGraphQLController.png)
+![Assembler](./images/SpO2MonitorGraphQLController.png)
 
 ## How to Run the Application
 - Make sure Docker is installed
