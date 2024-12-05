@@ -20,9 +20,9 @@ import java.util.Map;
 import static io.github.pellse.assembler.BatchRule.withIdResolver;
 import static io.github.pellse.assembler.RuleMapper.oneToMany;
 import static io.github.pellse.assembler.RuleMapper.oneToOne;
-import static io.github.pellse.assembler.caching.AutoCacheFactory.autoCache;
 import static io.github.pellse.assembler.caching.CacheFactory.cached;
 import static io.github.pellse.assembler.caching.CacheFactory.cachedMany;
+import static io.github.pellse.assembler.caching.StreamTableFactory.streamTable;
 import static io.github.pellse.assembler.caching.spring.SpringCacheFactory.springCache;
 import static io.github.pellse.example.config.CaffeineCacheConfig.BODY_MEASUREMENT_CACHE_1;
 import static io.github.pellse.example.config.CaffeineCacheConfig.SP02_CACHE;
@@ -50,7 +50,7 @@ public class PatientObservationGraphQLController {
                 .createRule(BodyMeasurement::patientId, oneToOne(cached(bodyMeasurementService::retrieveBodyMeasurements, springCache(bodyMeasurementCache))));
 
         this.spO2BatchRule = withIdResolver(Patient::id)
-                .createRule(SpO2::patientId, oneToMany(SpO2::id, cachedMany(springCache(spO2Cache), autoCache(spO2StreamingService::spO2Flux))));
+                .createRule(SpO2::patientId, oneToMany(SpO2::id, cachedMany(springCache(spO2Cache), streamTable(spO2StreamingService::spO2Flux))));
     }
 
     @QueryMapping

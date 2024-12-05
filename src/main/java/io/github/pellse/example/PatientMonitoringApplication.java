@@ -5,7 +5,7 @@ import io.github.pellse.example.patientobservation.bodymeasurement.BodyMeasureme
 import io.github.pellse.example.patientobservation.patient.Patient;
 import io.github.pellse.example.patientobservation.patient.PatientRepository;
 import io.github.pellse.example.patientobservation.spo2.SpO2;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -37,7 +37,7 @@ public class PatientMonitoringApplication implements ApplicationListener<Applica
     }
 
     @Override
-    public void onApplicationEvent(@NotNull ApplicationReadyEvent event) {
+    public void onApplicationEvent(@NonNull ApplicationReadyEvent event) {
 
         var patients = List.of(
                 new Patient(null, "Claire Gabriel", "GABC 6709 1206"),
