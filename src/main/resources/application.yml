@@ -3,9 +3,9 @@ spring:
     stream:
       bindings:
         sendSpO2-out-0:
-          destination: spO2
+          destination: spO2-topic
         receiveSpO2-in-0:
-          destination: spO2
+          destination: spO2-topic
     function:
       definition: sendSpO2; receiveSpO2
   graphql:
