@@ -4,7 +4,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.context.annotation.Bean;
-import org.springframework.test.context.DynamicPropertyRegistry;
 import org.testcontainers.containers.KafkaContainer;
 import org.testcontainers.containers.MongoDBContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
@@ -35,9 +34,8 @@ public class PatientMonitoringApplicationTest {
     }
 
     @Bean
-    public KafkaContainer kafka(DynamicPropertyRegistry registry) {
-        var kafka = new KafkaContainer(parse("confluentinc/cp-kafka:7.4.6"));
-        registry.add("spring.kafka.properties.bootstrap.servers", () -> "%s:%s".formatted(kafka.getHost(), kafka.getFirstMappedPort()));
-        return kafka;
+    @ServiceConnection
+    public KafkaContainer kafka() {
+        return new KafkaContainer(parse("confluentinc/cp-kafka:7.4.6"));
     }
 }
