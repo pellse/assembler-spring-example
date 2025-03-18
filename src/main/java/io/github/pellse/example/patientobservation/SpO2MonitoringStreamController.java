@@ -9,7 +9,8 @@ import io.github.pellse.example.patientobservation.spo2.SpO2;
 import io.github.pellse.example.patientobservation.spo2.SpO2StreamingService;
 import org.springframework.cache.CacheManager;
 import org.springframework.graphql.data.method.annotation.SubscriptionMapping;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 
 import static io.github.pellse.assembler.AssemblerBuilder.assemblerOf;
@@ -21,9 +22,10 @@ import static io.github.pellse.assembler.caching.spring.SpringCacheFactory.sprin
 import static io.github.pellse.example.config.CaffeineCacheConfig.BODY_MEASUREMENT_CACHE_2;
 import static io.github.pellse.example.config.CaffeineCacheConfig.PATIENT_CACHE;
 import static java.time.Duration.ofSeconds;
+import static org.springframework.http.MediaType.TEXT_EVENT_STREAM_VALUE;
 
-@Controller
-public class SpO2MonitoringGraphQLController {
+@RestController
+public class SpO2MonitoringStreamController {
 
     record SpO2Reading(SpO2 spO2, Patient patient, BodyMeasurement bodyMeasurement) {
     }
@@ -32,7 +34,7 @@ public class SpO2MonitoringGraphQLController {
 
     private final SpO2StreamingService spO2StreamingService;
 
-    SpO2MonitoringGraphQLController(
+    SpO2MonitoringStreamController(
             PatientService patientService,                                        // Connects to PostgreSQL, Patient Demographics
             BodyMeasurementService bodyMeasurementService,   // Connects to MongoDB, Body Height and Weight Patient Observation
             SpO2StreamingService spO2StreamingService,              // Connects to Kafka, Real-time Oxygen Saturation from pulse oximeter device (IOT)
@@ -52,6 +54,7 @@ public class SpO2MonitoringGraphQLController {
                 .build();
     }
 
+    @GetMapping(value = "/spO2/stream", produces = TEXT_EVENT_STREAM_VALUE)
     @SubscriptionMapping
     Flux<SpO2Reading> spO2Reading() {
 
