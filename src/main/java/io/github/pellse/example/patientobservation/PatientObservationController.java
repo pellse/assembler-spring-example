@@ -2,12 +2,10 @@ package io.github.pellse.example.patientobservation;
 
 import io.github.pellse.assembler.BatchRule;
 import io.github.pellse.example.patientobservation.bodymeasurement.BodyMeasurement;
-import io.github.pellse.example.patientobservation.bodymeasurement.BodyMeasurementService;
+import io.github.pellse.example.client.DiscoverableRestClient;
 import io.github.pellse.example.patientobservation.patient.Patient;
-import io.github.pellse.example.patientobservation.patient.PatientService;
 import io.github.pellse.example.patientobservation.spo2.SpO2;
 import io.github.pellse.example.patientobservation.spo2.SpO2StreamingService;
-import org.springframework.cache.CacheManager;
 import org.springframework.graphql.data.method.annotation.BatchMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
@@ -23,39 +21,31 @@ import static io.github.pellse.assembler.RuleMapper.oneToOne;
 import static io.github.pellse.assembler.caching.CacheFactory.cached;
 import static io.github.pellse.assembler.caching.CacheFactory.cachedMany;
 import static io.github.pellse.assembler.caching.StreamTableFactory.streamTable;
-import static io.github.pellse.assembler.caching.spring.SpringCacheFactory.springCache;
-import static io.github.pellse.example.config.CaffeineCacheConfig.BODY_MEASUREMENT_CACHE_1;
-import static io.github.pellse.example.config.CaffeineCacheConfig.SP02_CACHE;
+import static io.github.pellse.assembler.caching.caffeine.CaffeineCacheFactory.caffeineCache;
 
 @Controller
-public class PatientObservationGraphQLController {
-
-    private final PatientService patientService;
+public class PatientObservationController {
 
     private final BatchRule<Patient, BodyMeasurement> bodyMeasurementBatchRule;
     private final BatchRule<Patient, List<SpO2>> spO2BatchRule;
+    private final DiscoverableRestClient restClient;
 
-    PatientObservationGraphQLController(
-            PatientService patientService,                                        // Connects to PostgreSQL, Patient Demographics
-            BodyMeasurementService bodyMeasurementService,   // Connects to MongoDB, Body Height and Weight Patient Observation
-            SpO2StreamingService spO2StreamingService,              // Connects to Kafka, Real-time Oxygen Saturation from pulse oximeter device (IOT)
-            CacheManager cacheManager) {
-
-        final var bodyMeasurementCache = cacheManager.getCache(BODY_MEASUREMENT_CACHE_1);
-        final var spO2Cache = cacheManager.getCache(SP02_CACHE);
-
-        this.patientService = patientService;
+    PatientObservationController(
+            SpO2StreamingService spO2StreamingService,
+            DiscoverableRestClient restClient) {
 
         this.bodyMeasurementBatchRule = withIdResolver(Patient::id)
-                .createRule(BodyMeasurement::patientId, oneToOne(cached(bodyMeasurementService::retrieveBodyMeasurements, springCache(bodyMeasurementCache))));
+                .createRule(BodyMeasurement::patientId, oneToOne(cached(this::findBodyMeasurements, caffeineCache())));
 
         this.spO2BatchRule = withIdResolver(Patient::id)
-                .createRule(SpO2::patientId, oneToMany(SpO2::id, cachedMany(springCache(spO2Cache), streamTable(spO2StreamingService::spO2Flux))));
+                .createRule(SpO2::patientId, oneToMany(SpO2::id, cachedMany(caffeineCache(), streamTable(spO2StreamingService::spO2Flux))));
+
+        this.restClient = restClient;
     }
 
     @QueryMapping
     Flux<Patient> patients() {
-        return patientService.findAllPatients();
+        return findAllPatients();
     }
 
     @BatchMapping
@@ -66,5 +56,19 @@ public class PatientObservationGraphQLController {
     @BatchMapping
     Flux<List<SpO2>> spO2(List<Patient> patients) {
         return spO2BatchRule.toFlux(patients);
+    }
+
+    private Flux<Patient> findAllPatients() {
+        return restClient.retrieveData("patient-observation", "/patient/all", Patient.class);
+    }
+
+    private Flux<BodyMeasurement> findBodyMeasurements(List<Patient> patients) {
+        return restClient.retrieveData(
+                "patient-observation",
+                "/body-measurement/find-by-patient",
+                "patient-ids",
+                patients,
+                Patient::id,
+                BodyMeasurement.class);
     }
 }

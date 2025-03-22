@@ -1,5 +1,11 @@
 spring:
+  application:
+    name: patient-observation
   cloud:
+    consul:
+      discovery:
+        service-name: ${spring.application.name}
+        instance-id: ${spring.cloud.consul.discovery.service-name}-${random.uuid}
     stream:
       bindings:
         sendSpO2-out-0:
