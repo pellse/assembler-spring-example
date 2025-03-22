@@ -7,8 +7,8 @@ import io.github.pellse.patientobservation.common.Patient;
 import io.github.pellse.patientobservation.common.SpO2;
 import io.github.pellse.patientobservation.service.spo2.SpO2StreamingService;
 import org.springframework.graphql.data.method.annotation.SubscriptionMapping;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 
 import java.util.List;
@@ -21,7 +21,7 @@ import static io.github.pellse.assembler.caching.caffeine.CaffeineCacheFactory.c
 import static java.time.Duration.ofSeconds;
 import static org.springframework.http.MediaType.TEXT_EVENT_STREAM_VALUE;
 
-@Controller
+@RestController
 public class SpO2MonitoringStreamController {
 
     record SpO2Reading(SpO2 spO2, Patient patient, BodyMeasurement bodyMeasurement) {
