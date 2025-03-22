@@ -1,4 +1,4 @@
-package io.github.pellse.example.client;
+package io.github.pellse.patientobservation.client;
 
 import org.springframework.cloud.client.loadbalancer.reactive.ReactorLoadBalancerExchangeFilterFunction;
 import org.springframework.stereotype.Component;

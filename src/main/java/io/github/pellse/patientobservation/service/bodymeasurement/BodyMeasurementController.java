@@ -1,5 +1,6 @@
-package io.github.pellse.example.patientobservation.bodymeasurement;
+package io.github.pellse.patientobservation.service.bodymeasurement;
 
+import io.github.pellse.patientobservation.common.BodyMeasurement;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

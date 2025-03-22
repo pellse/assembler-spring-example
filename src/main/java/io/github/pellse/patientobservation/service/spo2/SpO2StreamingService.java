@@ -1,5 +1,6 @@
-package io.github.pellse.example.patientobservation.spo2;
+package io.github.pellse.patientobservation.service.spo2;
 
+import io.github.pellse.patientobservation.common.SpO2;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;

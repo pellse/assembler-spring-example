@@ -1,11 +1,11 @@
-package io.github.pellse.example.patientobservation;
+package io.github.pellse.patientobservation.service;
 
 import io.github.pellse.assembler.BatchRule;
-import io.github.pellse.example.patientobservation.bodymeasurement.BodyMeasurement;
-import io.github.pellse.example.client.DiscoverableRestClient;
-import io.github.pellse.example.patientobservation.patient.Patient;
-import io.github.pellse.example.patientobservation.spo2.SpO2;
-import io.github.pellse.example.patientobservation.spo2.SpO2StreamingService;
+import io.github.pellse.patientobservation.common.BodyMeasurement;
+import io.github.pellse.patientobservation.client.DiscoverableRestClient;
+import io.github.pellse.patientobservation.common.Patient;
+import io.github.pellse.patientobservation.common.SpO2;
+import io.github.pellse.patientobservation.service.spo2.SpO2StreamingService;
 import org.springframework.graphql.data.method.annotation.BatchMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;

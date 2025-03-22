@@ -1,10 +1,10 @@
-package io.github.pellse.example;
+package io.github.pellse.patientobservation;
 
-import io.github.pellse.example.patientobservation.bodymeasurement.BodyMeasurement;
-import io.github.pellse.example.patientobservation.bodymeasurement.BodyMeasurementRepository;
-import io.github.pellse.example.patientobservation.patient.Patient;
-import io.github.pellse.example.patientobservation.patient.PatientRepository;
-import io.github.pellse.example.patientobservation.spo2.SpO2;
+import io.github.pellse.patientobservation.common.BodyMeasurement;
+import io.github.pellse.patientobservation.service.bodymeasurement.BodyMeasurementRepository;
+import io.github.pellse.patientobservation.common.Patient;
+import io.github.pellse.patientobservation.service.patient.PatientRepository;
+import io.github.pellse.patientobservation.common.SpO2;
 import org.jspecify.annotations.NonNull;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package io.github.pellse.example.patientobservation.patient;
+package io.github.pellse.patientobservation.common;
 
 import org.springframework.data.annotation.Id;
 
