@@ -2,10 +2,25 @@
 
 This repository showcases the standalone usage of [Assembler](https://github.com/pellse/assembler) + the integration of [Assembler](https://github.com/pellse/assembler) with [Spring WebFlux](https://docs.spring.io/spring-framework/reference/web-reactive.html) and [Spring GraphQL](https://spring.io/projects/spring-graphql) to aggregate data from multiple sources in a single query. This combination serves as a powerful tool for implementing API composition, facilitating efficient data retrieval while reducing the complexity of client-side data aggregation.
 
+## Tech Stack
+- [Assembler](https://github.com/pellse/assembler)
+- [Spring WebFlux](https://docs.spring.io/spring-framework/reference/web-reactive.html)
+- [Spring GraphQL](https://spring.io/projects/spring-graphql)
+- Spring Data
+  - [Reactive PostgreSQL (R2DBC)](https://spring.io/projects/spring-data-r2dbc)
+  - [Reactive MongoDB](https://spring.io/projects/spring-data-r2dbc)
+- Spring Cloud
+  - [Spring Cloud Common](https://spring.io/projects/spring-cloud-commons)
+    - [Client-Side Load-Balancing with Spring Cloud LoadBalancer](https://spring.io/guides/gs/spring-cloud-loadbalancer)
+  - [Spring Cloud Function](https://spring.io/projects/spring-cloud-function)
+  - [Spring Cloud Stream](https://spring.io/projects/spring-cloud-stream)
+    - Reactive Kafka
+- [Testcontainers](https://www.testcontainers.org/)
+
 ## Scenario
 This example demonstrates a basic healthcare application for simulating monitoring patient data. Three services are implemented: the Patient Service for retrieving patient demographics from PostgreSQL, the Blood Pressure Service for retrieving patient's systolic and diastolic blood pressures from MongoDB, and the Heart Rate Streaming Service for real-time heart rate monitoring from a ECG device via Kafka. A GraphQL Controller is implemented in `PatientObservationController` to aggregate data from these services.
 
-*This sample app was deliberately kept simple to showcase the Assembler integration with Spring WebFlux and Spring GraphQL in a very accessible way. However, it does not incorporate more advanced concepts such as Change Data Capture (CDC) or complex stream processing*
+*This sample app was deliberately kept simple to showcase the Assembler integration with Spring WebFlux and Spring GraphQL in a very accessible way. However, it does not incorporate more advanced concepts such as Change Data Capture (CDC) or complex stream processing.*
 
 ## Assembler with Spring WebFlux/GraphQL for API Composition and solving the N+1 Query Problem
 
@@ -79,18 +94,3 @@ subscription VitalsMonitoringStream {
 You should see the following:
 
 https://github.com/pellse/assembler-example/assets/23351878/388f8a65-bffd-4344-9e10-ca720ec2f5cd
-
-## Tech Stack
-- [Assembler](https://github.com/pellse/assembler)
-- [Spring WebFlux](https://docs.spring.io/spring-framework/reference/web-reactive.html)
-- [Spring GraphQL](https://spring.io/projects/spring-graphql)
-- Spring Data
-  - [Reactive PostgreSQL (R2DBC)](https://spring.io/projects/spring-data-r2dbc)
-  - [Reactive MongoDB](https://spring.io/projects/spring-data-r2dbc)
-- Spring Cloud
-  - [Spring Cloud Common](https://spring.io/projects/spring-cloud-commons)
-    - [Client-Side Load-Balancing with Spring Cloud LoadBalancer](https://spring.io/guides/gs/spring-cloud-loadbalancer)
-  - [Spring Cloud Function](https://spring.io/projects/spring-cloud-function)
-  - [Spring Cloud Stream](https://spring.io/projects/spring-cloud-stream)
-    - Reactive Kafka
-- [Testcontainers](https://www.testcontainers.org/)
