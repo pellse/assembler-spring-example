@@ -43,7 +43,7 @@ Assembler excels in complex data aggregation within a data streaming scenario. T
 
 This repository takes advantage of the new [Spring Boot 3.1.0 Testcontainers support](https://www.atomicjar.com/2023/05/spring-boot-3-1-0-testcontainers-for-testing-and-local-development/) for local development.
 
-## How to Use the Application
+## How to Use the Application (GraphQL)
 Open a browser at http://localhost:8080/graphiql?path=/graphql
 
 #### For Batch Mapping (Data Querying)
@@ -92,5 +92,10 @@ subscription VitalsMonitoringStream {
 }
 ```
 You should see the following:
+https://github.com/user-attachments/assets/2e8b984f-4301-480e-b91f-9f65fe1c2538
 
+## How to Use the Application (REST Server-Sent Events)
+Open a browser or a an HTTP Client (e.g. Postman) at http://localhost:8080/vitals/stream
+
+You should see the following:
 https://github.com/user-attachments/assets/fc6ec97b-a73a-4fff-a3d5-db391ff99665
