@@ -67,7 +67,8 @@ query PatientQuery {
 }
 ```
 Periodically rerun the query, the number of `HR` (heart rate) values for each patient should increase:
-![PatientObservationController](https://github.com/pellse/assembler-example/assets/23351878/43051d61-76e8-4c5a-9209-f629c8955cb2)
+
+![PatientObservationController](https://github.com/user-attachments/assets/57bc660c-e092-45ec-b16a-748df2aa9a02)
 
 #### For Subscription Mapping (Data Streaming)
 - Run the following GraphQL Query:
