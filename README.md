@@ -48,7 +48,7 @@ Open a browser at http://localhost:8080/graphiql?path=/graphql
 
 #### For Batch Mapping (Data Querying)
 - Run the following GraphQL Query:
-```js
+```graphql
 query PatientQuery {
   patients {
     id
@@ -71,7 +71,7 @@ Periodically rerun the query, the number of `HR` (heart rate) values for each pa
 
 #### For Subscription Mapping (Data Streaming)
 - Run the following GraphQL Query:
-```js
+```graphql
 subscription VitalsMonitoringStream {
   vitals {
     patient {
