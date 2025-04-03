@@ -1,6 +1,6 @@
 # Assembler and Spring WebFlux/GraphQL Example
 
-This repository showcases the standalone usage of [Assembler](https://github.com/pellse/assembler) + the integration of [Assembler](https://github.com/pellse/assembler) with [Spring WebFlux](https://docs.spring.io/spring-framework/reference/web-reactive.html) and [Spring GraphQL](https://spring.io/projects/spring-graphql) to aggregate data from multiple sources in a single query. This combination serves as a powerful tool for implementing API composition, facilitating efficient data retrieval while reducing the complexity of client-side data aggregation.
+This repository showcases the standalone usage of [Assembler](https://github.com/pellse/assembler) + the integration of [Assembler](https://github.com/pellse/assembler) with [Spring WebFlux](https://docs.spring.io/spring-framework/reference/web-reactive.html) and [Spring GraphQL](https://spring.io/projects/spring-graphql) to aggregate data from multiple sources in a single query. This combination serves as a powerful tool for implementing API composition, facilitating efficient data retrieval while reducing the complexity of data aggregation.
 
 ## Tech Stack
 - [Assembler](https://github.com/pellse/assembler)
