@@ -93,4 +93,4 @@ subscription VitalsMonitoringStream {
 ```
 You should see the following:
 
-https://github.com/pellse/assembler-example/assets/23351878/388f8a65-bffd-4344-9e10-ca720ec2f5cd
+https://github.com/user-attachments/assets/fc6ec97b-a73a-4fff-a3d5-db391ff99665
