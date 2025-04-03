@@ -34,7 +34,7 @@ The new `BatchRule` API from Assembler seamlessly integrates with the Spring Gra
 ### Subscription Mapping (Data Streaming)
 Assembler excels in complex data aggregation within a data streaming scenario. This example, via `VitalsMonitoringStreamController`, demonstrates its usage in standalone mode in conjunction with Spring WebFlux for REST Server-Sent Events, and Spring GraphQL using [@SubscriptionMapping](https://docs.spring.io/spring-graphql/docs/current/reference/html/#controllers.schema-mapping). By combining streaming and batching, Assembler enables seamless data stream augmentation for clients connected via persistent HTTP connections or WebSockets.
 
-![Assembler](./images/SpO2MonitorGraphQLController.png)
+![image](https://github.com/user-attachments/assets/8574f4aa-de03-4327-8f9d-c39597fd25a1)
 
 ## How to Run the Application
 - Make sure Docker is installed
