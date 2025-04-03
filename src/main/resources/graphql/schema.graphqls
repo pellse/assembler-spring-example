@@ -8,33 +8,32 @@ type Patient {
     id: ID
     name: String
     healthCardNumber: String
-    bodyMeasurement: BodyMeasurement
-    spO2: [SpO2]
+    bloodPressures: [BP]
+    heartRate: [HR]
 }
 
-type BodyMeasurement {
+type BP {
     id: ID
     patientId: Int
-    healthCardNumber: String
-    height: Int
-    weight: Int
+    systolic: Int
+    diastolic: Int
     time: LocalDateTime
 }
 
-type SpO2 {
+type HR {
     id: ID
     patientId: Int
-    spO2Value: Int
+    heartRateValue: Int
     time: LocalDateTime
 }
 
-type SpO2Reading {
-    spO2: SpO2
+type Vitals {
+    heartRate: HR
     patient: Patient
-    bodyMeasurement: BodyMeasurement
+    bloodPressures: [BP]
 }
 
 type Subscription {
-    spO2Reading: SpO2Reading
+    vitals: Vitals
 }
 

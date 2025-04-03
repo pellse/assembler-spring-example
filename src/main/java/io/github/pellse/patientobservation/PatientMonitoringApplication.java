@@ -1,10 +1,10 @@
 package io.github.pellse.patientobservation;
 
-import io.github.pellse.patientobservation.common.BodyMeasurement;
-import io.github.pellse.patientobservation.service.bodymeasurement.BodyMeasurementRepository;
+import io.github.pellse.patientobservation.common.BP;
+import io.github.pellse.patientobservation.service.bloodpressure.BloodPressureRepository;
 import io.github.pellse.patientobservation.common.Patient;
 import io.github.pellse.patientobservation.service.patient.PatientRepository;
-import io.github.pellse.patientobservation.common.SpO2;
+import io.github.pellse.patientobservation.common.HR;
 import org.jspecify.annotations.NonNull;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,11 +25,11 @@ import static java.time.LocalDateTime.now;
 public class PatientMonitoringApplication implements ApplicationListener<ApplicationReadyEvent> {
 
     private final PatientRepository patientRepository;
-    private final BodyMeasurementRepository bodyMeasurementRepository;
+    private final BloodPressureRepository bloodPressureRepository;
 
-    PatientMonitoringApplication(PatientRepository patientRepository, BodyMeasurementRepository bodyMeasurementRepository) {
+    PatientMonitoringApplication(PatientRepository patientRepository, BloodPressureRepository bloodPressureRepository) {
         this.patientRepository = patientRepository;
-        this.bodyMeasurementRepository = bodyMeasurementRepository;
+        this.bloodPressureRepository = bloodPressureRepository;
     }
 
     public static void main(String[] args) {
@@ -46,33 +46,36 @@ public class PatientMonitoringApplication implements ApplicationListener<Applica
 
         patientRepository
                 .saveAll(patients)
-                .map(PatientMonitoringApplication::randomBodyMeasurement)
-                .transform(bodyMeasurementRepository::saveAll)
+                .flatMapIterable(PatientMonitoringApplication::randomBloodPressures)
+                .transform(bloodPressureRepository::saveAll)
+                .doOnError(Throwable::printStackTrace)
                 .blockLast();
     }
 
     @Bean
-    public Supplier<Flux<SpO2>> sendSpO2() {
-        var spO2Id = new AtomicLong(1);
+    public Supplier<Flux<HR>> sendHeartRates() {
+        var heartRateId = new AtomicLong(1);
 
-        return () -> Flux.<SpO2, Integer>generate(() -> 1, (patientId, sink) -> {
-                    sink.next(randomSpO2(spO2Id.getAndIncrement(), patientId));
+        return () -> Flux.<HR, Integer>generate(() -> 1, (patientId, sink) -> {
+                    sink.next(randomHeartRates(heartRateId.getAndIncrement(), patientId));
                     return (patientId % 3) + 1;
                 })
                 .delayElements(ofSeconds(1));
     }
 
-    private static SpO2 randomSpO2(long spO2Id, int patientId) {
-        return new SpO2(spO2Id, patientId, (int) (random() * 25) + 75, now()); // Oxygen Saturation between 75% and 100%
+    private static HR randomHeartRates(long heartRateId, int patientId) {
+        return new HR(heartRateId, patientId, (int) (random() * 100) + 50, now()); // Between 50 bpm and 150 bpm
     }
 
-    private static BodyMeasurement randomBodyMeasurement(Patient patient) {
-        return new BodyMeasurement(
+    private static List<BP> randomBloodPressures(Patient patient) {
+
+        Supplier<BP> bpSupplier = () -> new BP(
                 null,
                 patient.id(),
-                patient.healthCardNumber(),
-                (int) (random() * 20) + 160, // Between 160 cm and 180 cm
-                (int) (random() * 20) + 60, // Between 60 kg and 80 kg
+                (int) (random() * 40) + 100, // Systolic between 100 mmHg and 140 mmHg
+                (int) (random() * 40) + 60, // Diastolic between 60 mmHg and 100 mmHg
                 now().minusWeeks((long) (random() * 4) + 1)); // Now minus 1 to 5 weeks
+
+        return List.of(bpSupplier.get(), bpSupplier.get());
     }
 }

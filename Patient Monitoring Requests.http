@@ -1,4 +1,4 @@
 ### GET spO2 real-time data stream
-GET http://localhost:8080/spO2/stream
+GET http://localhost:8080/vitals/stream
 Accept: text/event-stream
 ###

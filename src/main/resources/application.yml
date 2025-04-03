@@ -8,12 +8,12 @@ spring:
         instance-id: ${spring.cloud.consul.discovery.service-name}-${random.uuid}
     stream:
       bindings:
-        sendSpO2-out-0:
-          destination: spO2-topic
-        receiveSpO2-in-0:
-          destination: spO2-topic
+        sendHeartRates-out-0:
+          destination: heartRate-topic
+        receiveHeartRates-in-0:
+          destination: heartRate-topic
     function:
-      definition: sendSpO2; receiveSpO2
+      definition: sendHeartRates; receiveHeartRates
   graphql:
     path: /graphql
     websocket:

@@ -4,9 +4,9 @@ import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
 
-public record SpO2(
+public record HR(
         @Id Long id,
         int patientId,
-        int spO2Value,
+        int heartRateValue,
         LocalDateTime time) {
 }
