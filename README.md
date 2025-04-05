@@ -18,9 +18,9 @@ This repository showcases the standalone usage of [Assembler](https://github.com
 - [Testcontainers](https://www.testcontainers.org/)
 
 ## Scenario
-This example demonstrates a basic healthcare application for simulating monitoring patient data. Three services are implemented: the Patient Service for retrieving patient demographics from PostgreSQL, the Blood Pressure Service for retrieving patient's systolic and diastolic blood pressures from MongoDB, and the Heart Rate Streaming Service for real-time heart rate monitoring from a ECG device via Kafka. A GraphQL Controller is implemented in `PatientObservationController` to aggregate data from these services.
+This example showcases a basic healthcare application designed to simulate monitoring patient data. Three services are implemented. The Patient Service retrieves patient demographics from PostgreSQL. The Blood Pressure Service fetches a patient's systolic and diastolic blood pressure readings from MongoDB. The Heart Rate Streaming Service provides real-time heart rate monitoring from an ECG device via Kafka. A GraphQL Controller implemented in `PatientObservationController` aggregates data from these services. A GraphQL Subscription and REST SSE (Server-Sent Events) endpoint are also implemented in `VitalsMonitoringStreamController` for real-time data aggregation from a stream of heart rate records.
 
-Check out this brief presentation for a walkthrough of the Assembler API:
+Check out this brief presentation for a walkthrough of the Assembler API for the real-time streaming example:
 
 https://github.com/user-attachments/assets/5d9efa18-521f-4bcc-b6ec-5bb0d9ca3a59
 
