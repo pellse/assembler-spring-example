@@ -20,7 +20,11 @@ This repository showcases the standalone usage of [Assembler](https://github.com
 ## Scenario
 This example demonstrates a basic healthcare application for simulating monitoring patient data. Three services are implemented: the Patient Service for retrieving patient demographics from PostgreSQL, the Blood Pressure Service for retrieving patient's systolic and diastolic blood pressures from MongoDB, and the Heart Rate Streaming Service for real-time heart rate monitoring from a ECG device via Kafka. A GraphQL Controller is implemented in `PatientObservationController` to aggregate data from these services.
 
-*This sample app was deliberately kept simple to showcase the Assembler integration with Spring WebFlux and Spring GraphQL in a very accessible way. However, it does not incorporate more advanced concepts such as Change Data Capture (CDC) or complex stream processing.*
+Check out this brief presentation for a walkthrough of the Assembler API:
+
+https://github.com/user-attachments/assets/5d9efa18-521f-4bcc-b6ec-5bb0d9ca3a59
+
+You can also view the presentation [here](https://snappify.com/view/a113a410-7957-4e39-898e-38bff1ec7982) and go through each slide at your own speed.
 
 ## Assembler with Spring WebFlux/GraphQL for API Composition and solving the N+1 Query Problem
 
