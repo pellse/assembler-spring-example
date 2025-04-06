@@ -6,7 +6,7 @@ import io.github.pellse.patientobservation.client.DiscoverableRestClient;
 import io.github.pellse.patientobservation.common.Patient;
 import io.github.pellse.patientobservation.common.HR;
 import io.github.pellse.patientobservation.common.Vitals;
-import io.github.pellse.patientobservation.service.heartRate.HeartRateStreamingService;
+import io.github.pellse.patientobservation.service.heartrate.HeartRateStreamingService;
 import org.springframework.graphql.data.method.annotation.SubscriptionMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
