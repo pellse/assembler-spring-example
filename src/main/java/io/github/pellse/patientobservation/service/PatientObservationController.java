@@ -17,8 +17,8 @@ import java.util.Map;
 
 import static io.github.pellse.assembler.BatchRule.withIdResolver;
 import static io.github.pellse.assembler.RuleMapper.oneToMany;
-import static io.github.pellse.assembler.caching.CacheFactory.cachedMany;
-import static io.github.pellse.assembler.caching.StreamTableFactory.streamTable;
+import static io.github.pellse.assembler.caching.factory.CacheFactory.cachedMany;
+import static io.github.pellse.assembler.caching.factory.StreamTableFactory.streamTable;
 import static io.github.pellse.assembler.caching.caffeine.CaffeineCacheFactory.caffeineCache;
 
 @Controller

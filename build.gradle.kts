@@ -1,6 +1,6 @@
 plugins {
     java
-    id("org.springframework.boot") version "3.4.3"
+    id("org.springframework.boot") version "3.4.4"
     id("io.spring.dependency-management") version "1.1.7"
 }
 
@@ -19,12 +19,13 @@ repositories {
     maven { url = uri("https://repo.spring.io/milestone") }
 }
 
-extra["springCloudVersion"] = "2024.0.0"
+extra["springCloudVersion"] = "2024.0.1"
+extra["springAiVersion"] = "1.0.0-M6"
 
 dependencies {
     implementation("org.jspecify:jspecify:1.0.0")
-    implementation("io.github.pellse:assembler:0.7.9")
-    implementation("io.github.pellse:assembler-cache-caffeine:0.7.9")
+    implementation("io.github.pellse:assembler:0.7.10")
+    implementation("io.github.pellse:assembler-cache-caffeine:0.7.10")
     implementation ("com.github.ben-manes.caffeine:caffeine:3.2.0")
     implementation("com.tailrocks.graphql:graphql-datetime-spring-boot-starter:6.0.0")
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb-reactive")
@@ -37,6 +38,7 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-starter-loadbalancer")
     implementation("org.springframework.boot:spring-boot-starter-cache")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework.ai:spring-ai-openai-spring-boot-starter")
     testImplementation("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("org.postgresql:r2dbc-postgresql")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
@@ -57,6 +59,7 @@ dependencies {
 dependencyManagement {
     imports {
         mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
+        mavenBom("org.springframework.ai:spring-ai-bom:${project.extra["springAiVersion"]}")
     }
 }
 

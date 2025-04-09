@@ -33,7 +33,14 @@ type Vitals {
     bloodPressures: [BP]
 }
 
+type AugmentedVitals {
+    patient: Patient
+    heartRate: HR
+    bloodPressures: [BP]
+    diagnosis: String
+}
+
 type Subscription {
-    vitals: Vitals
+    vitals: AugmentedVitals
 }
 
