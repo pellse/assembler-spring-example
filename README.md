@@ -100,7 +100,7 @@ subscription VitalsMonitoringStream {
 ```
 You should see the following:
 
-https://github.com/user-attachments/assets/a9e97233-0125-4548-b57e-c1715ab98492
+https://github.com/user-attachments/assets/8b3b3880-9d58-4653-9373-0c7ed524a664
 
 ## How to Use the Application (REST Server-Sent Events)
 Open a browser or a an HTTP Client (e.g. Postman) at http://localhost:8080/vitals/stream
