@@ -1,12 +1,12 @@
-# Assembler and Spring WebFlux/GraphQL Example
+# Assembler + Spring AI/WebFlux/GraphQL Example
 
-This repository showcases the standalone usage of [Assembler](https://github.com/pellse/assembler) + the integration of [Assembler](https://github.com/pellse/assembler) with [Spring WebFlux](https://docs.spring.io/spring-framework/reference/web-reactive.html) and [Spring GraphQL](https://spring.io/projects/spring-graphql) to aggregate data from multiple sources in a single query. This combination serves as a powerful tool for implementing API composition, facilitating efficient data retrieval while reducing the complexity of data aggregation.
+This repository showcases the standalone usage of [Assembler](https://github.com/pellse/assembler) + an example of integration with different Spring related technologies like [Spring AI](https://spring.io/projects/spring-ai),  [Spring WebFlux](https://docs.spring.io/spring-framework/reference/web-reactive.html) and [Spring GraphQL](https://spring.io/projects/spring-graphql) for real-time data composition.
 
 ## Tech Stack
 - [Assembler](https://github.com/pellse/assembler)
+- [Spring AI](https://spring.io/projects/spring-ai)
 - [Spring WebFlux](https://docs.spring.io/spring-framework/reference/web-reactive.html)
 - [Spring GraphQL](https://spring.io/projects/spring-graphql)
-- [Spring AI](https://spring.io/projects/spring-ai)
 - Spring Data
   - [Reactive PostgreSQL (R2DBC)](https://spring.io/projects/spring-data-r2dbc)
   - [Reactive MongoDB](https://spring.io/projects/spring-data-r2dbc)
@@ -19,7 +19,13 @@ This repository showcases the standalone usage of [Assembler](https://github.com
 - [Testcontainers](https://www.testcontainers.org/)
 
 ## Scenario
-This example showcases a basic healthcare application designed to simulate monitoring patient data. Four services are implemented. The Patient Service retrieves patient demographics from PostgreSQL. The Blood Pressure Service fetches a patient's systolic and diastolic blood pressure readings from MongoDB. The Heart Rate Streaming Service provides real-time heart rate monitoring from an ECG device via Kafka. The Diagnosis AI Service analyzes heart rate and blood pressure data to produce diagnostic insights. A GraphQL Controller implemented in `PatientObservationController` aggregates data from these services. A GraphQL Subscription and REST SSE (Server-Sent Events) endpoint are also implemented in `VitalsMonitoringStreamController` for real-time data aggregation from a stream of heart rate records.
+This example showcases a basic healthcare application designed to simulate monitoring patient data. Four services are implemented:
+- The *Patient Service* retrieves patient demographics from PostgreSQL.
+- The *Blood Pressure Service* fetches a patient's systolic and diastolic blood pressure readings from MongoDB.
+- The *Heart Rate Streaming Service* provides real-time heart rate monitoring from an ECG device via Kafka.
+- The ***Diagnosis AI Service*** analyzes heart rate and blood pressure data to produce diagnostic insights.
+
+A GraphQL Controller implemented in `PatientObservationController` aggregates data from these services. A GraphQL Subscription and REST SSE (Server-Sent Events) endpoint are also implemented in `VitalsMonitoringStreamController` for real-time data aggregation from a stream of heart rate records.
 
 Check out this brief presentation for a walkthrough of the Assembler API for the real-time streaming example (please note that the newly added AI/LLM integration is not covered in this presentation):
 
