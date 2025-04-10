@@ -31,8 +31,8 @@ public class DiagnosisAIService {
             
              Each object contains:
              - `patient`: patient information
-             - `heartRate`: a heart rate measurement
-             - `bloodPressures`: an array of blood pressure readings
+             - `heartRate`: a heart rate measurement, with a `heartRateValue` expressed in beats per minute (bpm)
+             - `bloodPressures`: an array of blood pressure readings, each with `systolic` and `diastolic` values expressed in mmHg
             
              Your task:
              - Analyze the `heartRate` and `bloodPressures` fields.
@@ -64,7 +64,7 @@ public class DiagnosisAIService {
 
         return just(vitalsList)
                 .map(unchecked(objectMapper::writeValueAsString))
-                .mapNotNull(this::getDiagnosesFromLLM)
+                .map(this::getDiagnosesFromLLM)
                 .flatMapIterable(identity())
                 .doOnError(logError)
                 .onErrorResume(defaultDiagnoses)
