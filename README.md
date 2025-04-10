@@ -34,7 +34,7 @@ The new `BatchRule` API from Assembler seamlessly integrates with the Spring Gra
 - caching of service invocations using the [cached()](https://github.com/pellse/assembler#reactive-caching) function
 - caching of real-time data streams with the [streamTable()](https://github.com/pellse/assembler#stream-table) function.
 
-![image](https://github.com/user-attachments/assets/482d3453-9f7d-4064-828d-3ed0b7ff999c)
+![image](https://github.com/user-attachments/assets/d54fa70e-c0a5-4d94-be33-936926aa8b27)
 
 ### Subscription Mapping (Data Streaming)
 Assembler excels in complex data aggregation within a data streaming scenario. This example, via `VitalsMonitoringStreamController`, demonstrates its usage in standalone mode in conjunction with Spring WebFlux for REST Server-Sent Events, and Spring GraphQL using [@SubscriptionMapping](https://docs.spring.io/spring-graphql/docs/current/reference/html/#controllers.schema-mapping). By combining streaming and batching, Assembler enables seamless data stream augmentation for clients connected via persistent HTTP connections or WebSockets.
