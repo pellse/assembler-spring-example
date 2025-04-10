@@ -42,6 +42,18 @@ Assembler excels in complex data aggregation within a data streaming scenario. T
 ![image](https://github.com/user-attachments/assets/8574f4aa-de03-4327-8f9d-c39597fd25a1)
 
 ## How to Run the Application
+- Configure [application.yml](https://github.com/pellse/assembler-spring-example/blob/main/src/main/resources/application.yml) with your OpenAI compatible API Key (Google Gemini is used in this example):
+  ```yaml
+  spring:
+    ai:
+      openai:
+        api-key: ${GEMINI_API_KEY}
+        chat:
+          base-url: https://generativelanguage.googleapis.com
+          completions-path: /v1beta/openai/chat/completions
+          options:
+            model: gemini-2.0-flash
+  ```
 - Make sure Docker is installed
 - Run the `main` method in *src\test\java\io\github\pellse\example\PatientMonitoringApplicationTest.java*
   - Or execute the *bootTestRun* Gradle Task
