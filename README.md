@@ -1,4 +1,4 @@
-# Assembler + Spring AI/WebFlux/GraphQL Example
+# Real-Time Patient Monitoring with Spring and AI
 
 This repository showcases the standalone usage of [Assembler](https://github.com/pellse/assembler) + an example of integration with different Spring related technologies like [Spring AI](https://spring.io/projects/spring-ai),  [Spring WebFlux](https://docs.spring.io/spring-framework/reference/web-reactive.html) and [Spring GraphQL](https://spring.io/projects/spring-graphql) for real-time data composition.
 
