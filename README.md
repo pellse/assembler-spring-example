@@ -22,6 +22,7 @@ This repository showcases the standalone usage of [Assembler](https://github.com
 This example showcases a basic healthcare application designed to simulate monitoring patient data. Four services are implemented:
 - The *Patient Service* retrieves patient demographics from PostgreSQL.
 - The *Blood Pressure Service* fetches a patient's systolic and diastolic blood pressure readings from MongoDB.
+  - Coming soon: Support for Change Data Capture (CDC) for real-time synchronization of the *Blood Pressure Service*'s data cache.
 - The *Heart Rate Streaming Service* provides real-time heart rate monitoring from an ECG device via Kafka.
 - The ***Diagnosis AI Service*** analyzes heart rate and blood pressure data to produce diagnostic insights.
 
