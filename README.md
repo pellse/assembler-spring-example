@@ -1,6 +1,6 @@
-# Assembler + Spring AI/WebFlux/GraphQL Example
+# Real-Time Patient Monitoring with Spring and AI
 
-This repository showcases the standalone usage of [Assembler](https://github.com/pellse/assembler) + an example of integration with different Spring related technologies like [Spring AI](https://spring.io/projects/spring-ai),  [Spring WebFlux](https://docs.spring.io/spring-framework/reference/web-reactive.html) and [Spring GraphQL](https://spring.io/projects/spring-graphql) for real-time data composition.
+This repository showcases the standalone usage of [Assembler](https://github.com/pellse/assembler) + an example of integration with different Spring related technologies like Spring AI, Spring Cloud, Spring WebFlux and Spring GraphQL for real-time data composition.
 
 ## Tech Stack
 - [Assembler](https://github.com/pellse/assembler)
@@ -22,6 +22,7 @@ This repository showcases the standalone usage of [Assembler](https://github.com
 This example showcases a basic healthcare application designed to simulate monitoring patient data. Four services are implemented:
 - The *Patient Service* retrieves patient demographics from PostgreSQL.
 - The *Blood Pressure Service* fetches a patient's systolic and diastolic blood pressure readings from MongoDB.
+  - Coming soon: Support for Change Data Capture (CDC) for real-time synchronization of the *Blood Pressure Service*'s data cache.
 - The *Heart Rate Streaming Service* provides real-time heart rate monitoring from an ECG device via Kafka.
 - The ***Diagnosis AI Service*** analyzes heart rate and blood pressure data to produce diagnostic insights.
 
