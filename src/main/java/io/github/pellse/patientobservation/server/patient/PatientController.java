@@ -1,4 +1,4 @@
-package io.github.pellse.patientobservation.service.patient;
+package io.github.pellse.patientobservation.server.patient;
 
 import io.github.pellse.patientobservation.common.Patient;
 import org.springframework.web.bind.annotation.GetMapping;

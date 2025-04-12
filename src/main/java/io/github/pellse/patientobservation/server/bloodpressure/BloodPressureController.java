@@ -1,4 +1,4 @@
-package io.github.pellse.patientobservation.service.bloodpressure;
+package io.github.pellse.patientobservation.server.bloodpressure;
 
 import io.github.pellse.patientobservation.common.BP;
 import org.springframework.web.bind.annotation.GetMapping;

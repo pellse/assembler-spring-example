@@ -1,9 +1,9 @@
 package io.github.pellse.patientobservation;
 
 import io.github.pellse.patientobservation.common.BP;
-import io.github.pellse.patientobservation.service.bloodpressure.BloodPressureRepository;
+import io.github.pellse.patientobservation.server.bloodpressure.BloodPressureRepository;
 import io.github.pellse.patientobservation.common.Patient;
-import io.github.pellse.patientobservation.service.patient.PatientRepository;
+import io.github.pellse.patientobservation.server.patient.PatientRepository;
 import io.github.pellse.patientobservation.common.HR;
 import org.jspecify.annotations.NonNull;
 import org.springframework.boot.SpringApplication;

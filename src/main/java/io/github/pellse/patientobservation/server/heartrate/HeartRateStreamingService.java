@@ -1,4 +1,4 @@
-package io.github.pellse.patientobservation.service.heartrate;
+package io.github.pellse.patientobservation.server.heartrate;
 
 import io.github.pellse.patientobservation.common.HR;
 import org.springframework.context.annotation.Bean;

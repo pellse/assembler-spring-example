@@ -1,4 +1,4 @@
-package io.github.pellse.patientobservation.service.diagnosis;
+package io.github.pellse.patientobservation.server.diagnosis;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.pellse.patientobservation.common.Diagnosis;

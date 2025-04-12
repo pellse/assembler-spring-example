@@ -1,11 +1,11 @@
-package io.github.pellse.patientobservation.service;
+package io.github.pellse.patientobservation.server;
 
 import io.github.pellse.assembler.BatchRule;
 import io.github.pellse.patientobservation.common.BP;
 import io.github.pellse.patientobservation.client.DiscoverableRestClient;
 import io.github.pellse.patientobservation.common.Patient;
 import io.github.pellse.patientobservation.common.HR;
-import io.github.pellse.patientobservation.service.heartrate.HeartRateStreamingService;
+import io.github.pellse.patientobservation.server.heartrate.HeartRateStreamingService;
 import org.springframework.graphql.data.method.annotation.BatchMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;

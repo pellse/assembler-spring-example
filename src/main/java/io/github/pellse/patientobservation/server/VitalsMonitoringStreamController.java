@@ -1,10 +1,10 @@
-package io.github.pellse.patientobservation.service;
+package io.github.pellse.patientobservation.server;
 
 import io.github.pellse.assembler.Assembler;
 import io.github.pellse.patientobservation.common.*;
 import io.github.pellse.patientobservation.client.DiscoverableRestClient;
-import io.github.pellse.patientobservation.service.diagnosis.DiagnosisAIService;
-import io.github.pellse.patientobservation.service.heartrate.HeartRateStreamingService;
+import io.github.pellse.patientobservation.server.diagnosis.DiagnosisAIService;
+import io.github.pellse.patientobservation.server.heartrate.HeartRateStreamingService;
 import org.springframework.graphql.data.method.annotation.SubscriptionMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

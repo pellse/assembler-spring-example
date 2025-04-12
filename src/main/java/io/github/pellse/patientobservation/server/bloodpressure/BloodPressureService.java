@@ -1,4 +1,4 @@
-package io.github.pellse.patientobservation.service.bloodpressure;
+package io.github.pellse.patientobservation.server.bloodpressure;
 
 import io.github.pellse.patientobservation.common.BP;
 import io.github.pellse.patientobservation.common.Patient;
