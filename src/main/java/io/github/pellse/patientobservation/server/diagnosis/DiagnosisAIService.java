@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import static io.github.pellse.util.CheckedFunction.unchecked;
+import static io.github.pellse.util.function.CheckedFunction.unchecked;
 import static java.util.function.Function.identity;
 import static org.slf4j.LoggerFactory.getLogger;
 import static reactor.core.publisher.Flux.fromIterable;

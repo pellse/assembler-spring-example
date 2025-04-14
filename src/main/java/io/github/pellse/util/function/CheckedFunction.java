@@ -1,4 +1,4 @@
-package io.github.pellse.util;
+package io.github.pellse.util.function;
 
 import java.util.function.Function;
 
