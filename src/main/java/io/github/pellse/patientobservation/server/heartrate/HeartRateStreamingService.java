@@ -14,6 +14,7 @@ import java.util.function.Function;
 import static io.github.pellse.util.reactive.ReactiveBridge.reactiveBridge;
 import static java.time.Duration.ofMillis;
 import static org.slf4j.LoggerFactory.getLogger;
+import static reactor.core.publisher.Sinks.EmitResult.FAIL_NON_SERIALIZED;
 import static reactor.util.retry.Retry.fixedDelay;
 
 @Service
@@ -25,6 +26,7 @@ public class HeartRateStreamingService {
 
     private final Function<Flux<Message<HR>>, Mono<Void>> bridge = reactiveBridge()
             .retry(fixedDelay(10, ofMillis(1)))
+            .retryCondition(emitResult -> emitResult == FAIL_NON_SERIALIZED)
             .onError(this::logError)
             .bridge(heartRateSink);
 

@@ -23,6 +23,7 @@ import static reactor.core.publisher.Sinks.EmitResult.FAIL_CANCELLED;
 public class ReactiveBridge {
 
     private Retry retry;
+    private Predicate<EmitResult> retryCondition = emitResult -> emitResult == FAIL_NON_SERIALIZED || emitResult == FAIL_OVERFLOW;
     private Consumer<Throwable> onError;
 
     public static ReactiveBridge reactiveBridge() {
@@ -37,6 +38,11 @@ public class ReactiveBridge {
         return retry(retryBackoffSpec, RetryBackoffSpec::filter);
     }
 
+    public ReactiveBridge retryCondition(Predicate<EmitResult> retryCondition) {
+        this.retryCondition = retryCondition;
+        return this;
+    }
+
     public ReactiveBridge onError(Consumer<Throwable> onError) {
         this.onError = onError;
         return this;
@@ -47,21 +53,12 @@ public class ReactiveBridge {
                 just(message)
                         .map(Message::getPayload)
                         .map(sink::tryEmitNext)
-                        .flatMap(emitResult -> shouldRetry(emitResult) ? error(new EmissionException(emitResult)) : just(emitResult))
+                        .flatMap(emitResult -> retryCondition.test(emitResult) ? error(new EmissionException(emitResult)) : just(emitResult))
                         .doOnNext(emitResult -> requireNonNull(message.getHeaders().get(ACKNOWLEDGMENT, ReceiverOffset.class)).acknowledge())
                         .transform(mono -> retry != null ? mono.retryWhen(retry) : mono)
                         .transform(mono -> onError != null ? mono.doOnError(onError) : mono)
                         .onErrorResume(e -> just(FAIL_CANCELLED)) // What we return here doesn't matter, but it's important to return a value so that the Reactive Kafka Binder doesn't stop listening to the Kafka topic
         ).then(); // Converts our Flux to Mono<Void>, which will complete when the Flux completes. The Reactive Kafka Binder will subscribe to this Mono<Void> so we don't have to subscribe to it manually.
-    }
-
-    /**
-     * Checks if the {@code emitResult} indicates a failure that should be retried.
-     * We consider a failure to be retryable only if it is a serialization failure, meaning 2 or more threads
-     * are trying to emit to the same sink at the same time.
-     */
-    private boolean shouldRetry(EmitResult emitResult) {
-        return emitResult == FAIL_NON_SERIALIZED;
     }
 
     /**
