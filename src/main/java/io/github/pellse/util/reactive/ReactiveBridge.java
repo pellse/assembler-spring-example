@@ -10,8 +10,7 @@ import reactor.util.retry.Retry;
 import reactor.util.retry.RetryBackoffSpec;
 import reactor.util.retry.RetrySpec;
 
-import java.util.function.Consumer;
-import java.util.function.Function;
+import java.util.function.*;
 
 import static java.util.Objects.requireNonNull;
 import static org.springframework.kafka.support.KafkaHeaders.ACKNOWLEDGMENT;
@@ -28,14 +27,12 @@ public class ReactiveBridge {
         return new ReactiveBridge();
     }
 
-    public ReactiveBridge retry(RetrySpec retry) {
-        this.retry = retry.filter(EmissionException.class::isInstance);
-        return this;
+    public ReactiveBridge retry(RetrySpec retrySpec) {
+        return retry(retrySpec, RetrySpec::filter);
     }
 
-    public ReactiveBridge retry(RetryBackoffSpec retry) {
-        this.retry = retry.filter(EmissionException.class::isInstance);
-        return this;
+    public ReactiveBridge retry(RetryBackoffSpec retryBackoffSpec) {
+        return retry(retryBackoffSpec, RetryBackoffSpec::filter);
     }
 
     public ReactiveBridge onError(Consumer<Throwable> onError) {
@@ -54,5 +51,14 @@ public class ReactiveBridge {
                         .transform(mono -> onError != null ? mono.doOnError(onError) : mono)
                         .onErrorResume(e -> just(FAIL_CANCELLED)) // What we return here doesn't matter, but it's important to return a value so that the Reactive Kafka Binder doesn't stop listening to the Kafka topic
         ).then(); // Converts our Flux to Mono<Void>, which will complete when the Flux completes. The Reactive Kafka Binder will subscribe to this Mono<Void> so we don't have to subscribe to it manually.
+    }
+
+    /**
+     * The {@code Retry} type does not expose the {@code filter()} method; it is declared instead of being overridden in subclasses.
+     * Therefore, we must use the {@code RetrySpec} and {@code RetryBackoffSpec} types to access the {@code filter()} method.
+     */
+    private <T extends Retry> ReactiveBridge retry(T retrySpec, BiFunction<T, Predicate<Throwable>, T> filterFunction) {
+        this.retry = filterFunction.apply(retrySpec, EmissionException.class::isInstance);
+        return this;
     }
 }
