@@ -14,12 +14,19 @@ import reactor.util.retry.RetrySpec;
 import java.util.function.*;
 
 import static java.util.Objects.requireNonNull;
+import static java.util.Optional.ofNullable;
 import static org.springframework.kafka.support.KafkaHeaders.ACKNOWLEDGMENT;
 import static reactor.core.publisher.Mono.error;
 import static reactor.core.publisher.Mono.just;
 import static reactor.core.publisher.Sinks.EmitResult.*;
 import static reactor.core.publisher.Sinks.EmitResult.FAIL_CANCELLED;
 
+/**
+ * Utility class bridging a reactive Kafka consumer to a reactive sink,
+ * managing error handling and retries for message emission. Since auto-commit
+ * is unavailable in Reactive Kafka Binder, we have to commit offsets manually,
+ * and this class abstracts the logic to handle that process seamlessly.
+ */
 public class ReactiveBridge {
 
     private Retry retry;
@@ -55,10 +62,10 @@ public class ReactiveBridge {
                         .map(sink::tryEmitNext)
                         .flatMap(emitResult -> retryCondition.test(emitResult) ? error(new EmissionException(emitResult)) : just(emitResult))
                         .doOnNext(emitResult -> requireNonNull(message.getHeaders().get(ACKNOWLEDGMENT, ReceiverOffset.class)).acknowledge())
-                        .transform(mono -> retry != null ? mono.retryWhen(retry) : mono)
-                        .transform(mono -> onError != null ? mono.doOnError(onError) : mono)
-                        .onErrorResume(e -> just(FAIL_CANCELLED)) // What we return here doesn't matter, but it's important to return a value so that the Reactive Kafka Binder doesn't stop listening to the Kafka topic
-        ).then(); // Converts our Flux to Mono<Void>, which will complete when the Flux completes. The Reactive Kafka Binder will subscribe to this Mono<Void> so we don't have to subscribe to it manually.
+                        .transform(mono -> ofNullable(retry).map(mono::retryWhen).orElse(mono))
+                        .transform(mono -> ofNullable(onError).map(mono::doOnError).orElse(mono))
+                        .onErrorResume(e -> just(FAIL_CANCELLED))   // We return a value so that the binder keeps listening on the Kafka topic
+        ).then(); // The Reactive Kafka Binder will subscribe to this Mono<Void> so we don't have to subscribe to it manually.
     }
 
     /**
