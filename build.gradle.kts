@@ -20,7 +20,7 @@ repositories {
 }
 
 extra["springCloudVersion"] = "2024.0.1"
-extra["springAiVersion"] = "1.0.0-M6"
+extra["springAiVersion"] = "1.0.0-M7"
 
 dependencies {
     implementation("org.jspecify:jspecify:1.0.0")
@@ -38,7 +38,7 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-starter-loadbalancer")
     implementation("org.springframework.boot:spring-boot-starter-cache")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
-    implementation("org.springframework.ai:spring-ai-openai-spring-boot-starter")
+    implementation("org.springframework.ai:spring-ai-starter-model-openai")
     testImplementation("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("org.postgresql:r2dbc-postgresql")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
