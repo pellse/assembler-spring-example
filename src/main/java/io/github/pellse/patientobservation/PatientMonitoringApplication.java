@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Supplier;
 
+import static io.github.pellse.patientobservation.common.Patient.Sex.F;
+import static io.github.pellse.patientobservation.common.Patient.Sex.M;
 import static java.lang.Math.random;
 import static java.time.Duration.ofSeconds;
 import static java.time.LocalDateTime.now;
@@ -40,9 +42,9 @@ public class PatientMonitoringApplication implements ApplicationListener<Applica
     public void onApplicationEvent(@NonNull ApplicationReadyEvent event) {
 
         var patients = List.of(
-                new Patient(null, "Claire Gabriel", "GABC 6709 1206"),
-                new Patient(null, "Erick Daria", "DARE 7802 2112"),
-                new Patient(null, "Brenden Jacob", "JACB 8206 1405"));
+                new Patient(null, "Claire Gabriel", "GABC 6709 1206", 35, F),
+                new Patient(null, "Erick Daria", "DARE 7802 2112", 43, M),
+                new Patient(null, "Brenden Jacob", "JACB 8206 1405", 62, M));
 
         patientRepository
                 .saveAll(patients)

@@ -8,6 +8,8 @@ type Patient {
     id: ID
     name: String
     healthCardNumber: String
+    age: Int
+    sex: Sex
     bloodPressures: [BP]
     heartRate: [HR]
 }
@@ -38,6 +40,11 @@ type AugmentedVitals {
     heartRate: HR
     bloodPressures: [BP]
     diagnosis: String
+}
+
+enum Sex {
+    M
+    F
 }
 
 type Subscription {
