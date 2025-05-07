@@ -25,8 +25,7 @@ import static org.springframework.http.MediaType.TEXT_EVENT_STREAM_VALUE;
 @RestController
 public class VitalsMonitoringStreamController {
 
-    private final Assembler<HR, Vitals> vitalsAssembler;
-    private final Assembler<Vitals, AugmentedVitals> augmentedVitalsAssembler;
+    private final Assembler<HR, AugmentedVitals> augmentedVitalsAssembler;
 
     private final HeartRateStreamingService heartRateStreamingService;
     private final DiscoverableRestClient restClient;
@@ -36,7 +35,7 @@ public class VitalsMonitoringStreamController {
             DiagnosisAIService diagnosisAIService,
             DiscoverableRestClient restClient) {
 
-        vitalsAssembler = assemblerOf(Vitals.class)
+        final Assembler<HR, Vitals> heartRateToVitalsAssembler = assemblerOf(Vitals.class)
                 .withCorrelationIdResolver(HR::patientId)
                 .withRules(
                         rule(Patient::id, oneToOne(cached(this::getPatients, caffeineCache()))),
@@ -44,12 +43,14 @@ public class VitalsMonitoringStreamController {
                         Vitals::new)
                 .build();
 
-        augmentedVitalsAssembler = assemblerOf(AugmentedVitals.class)
+        final Assembler<Vitals, AugmentedVitals> vitalsToAugmentedVitalsAssembler = assemblerOf(AugmentedVitals.class)
                 .withCorrelationIdResolver(Vitals::patient, Patient::id)
                 .withRules(
                         rule(Diagnosis::patientId, oneToOne(diagnosisAIService::getDiagnosesFromLLM)),
                         AugmentedVitals::new)
                 .build();
+
+        augmentedVitalsAssembler = heartRateToVitalsAssembler.pipeWith(vitalsToAugmentedVitalsAssembler);
 
         this.heartRateStreamingService = heartRateStreamingService;
         this.restClient = restClient;
@@ -60,7 +61,6 @@ public class VitalsMonitoringStreamController {
     Flux<AugmentedVitals> vitals() {
         return heartRateStreamingService.stream()
                 .window(3)
-                .flatMapSequential(vitalsAssembler::assembleStream)
                 .flatMapSequential(augmentedVitalsAssembler::assemble)
                 .delayElements(ofSeconds(1));
     }

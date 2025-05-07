@@ -1,6 +1,6 @@
 plugins {
     java
-    id("org.springframework.boot") version "3.4.4"
+    id("org.springframework.boot") version "3.4.5"
     id("io.spring.dependency-management") version "1.1.7"
 }
 
@@ -24,8 +24,8 @@ extra["springAiVersion"] = "1.0.0-M7"
 
 dependencies {
     implementation("org.jspecify:jspecify:1.0.0")
-    implementation("io.github.pellse:assembler:0.7.10")
-    implementation("io.github.pellse:assembler-cache-caffeine:0.7.10")
+    implementation("io.github.pellse:assembler:0.7.11")
+    implementation("io.github.pellse:assembler-cache-caffeine:0.7.11")
     implementation ("com.github.ben-manes.caffeine:caffeine:3.2.0")
     implementation("com.tailrocks.graphql:graphql-datetime-spring-boot-starter:6.0.0")
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb-reactive")
